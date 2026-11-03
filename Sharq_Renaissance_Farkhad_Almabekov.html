@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="kk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101C2C" />
+    <meta name="description" content="Шығыс Ренессансы және ғылымның дамуы. Қазақ тіліндегі 12 слайдтан тұратын дербес интерактивті презентация." />
+    <meta name="author" content="Farkhad Almabekov" />
+    <title>Шығыс Ренессансы — Ғылымның алтын дәуірі</title>
+    <style>
+      :root{--navy:#101c2c;--deep:#0c1623;--paper:#e9dfc9;--gold:#b99a5b;--gold-light:#d4bc83;--cream:#f7f4ec;--teal:#347c80;--muted:#9aabb6;--line:rgba(185,154,91,.2);--serif:Georgia,'Times New Roman',serif;--sans:'Segoe UI',Arial,sans-serif}
+      *{box-sizing:border-box}
+      html,body{margin:0;width:100%;height:100%;overflow:hidden}
+      body{background:var(--navy);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+      button,a{-webkit-tap-highlight-color:transparent}
+      button{font:inherit;color:inherit;cursor:pointer}
+      button:disabled{cursor:default;opacity:.28}
+      button:focus-visible,a:focus-visible{outline:2px solid var(--gold-light);outline-offset:6px}
+      button{border:0;background:none}
+      a{color:inherit}
+      svg{display:block}
+      .sprite{position:absolute;width:0;height:0;overflow:hidden}
+      .icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+      .app{height:100dvh;min-height:360px;display:grid;grid-template-rows:88px minmax(0,1fr) 100px;position:relative;isolation:isolate}
+      .app:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 78% 42%,rgba(46,76,91,.14),transparent 52%),linear-gradient(115deg,rgba(0,0,0,.04),transparent 40%,rgba(0,0,0,.08))}
+      .topbar{margin:0 4.3%;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:24px;z-index:5}
+      .brand{display:flex;align-items:center;gap:13px;text-decoration:none;font-size:11px;letter-spacing:2.5px;font-weight:600;white-space:nowrap}
+      .brand-mark{color:var(--gold);width:33px;height:33px}
+      .header-right{display:flex;align-items:center;gap:30px}
+      .collection-label{color:var(--muted);font-size:9px;letter-spacing:2.2px}
+      .header-divider{width:1px;height:18px;background:var(--line)}
+      .icon-button{display:inline-flex;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid transparent;border-radius:3px;transition:color .2s,background .2s}
+      .icon-button:hover{color:var(--gold-light);background:rgba(185,154,91,.07)}
+      .stage{position:relative;overflow:hidden;min-height:0}
+      .slide{position:absolute;inset:0;visibility:hidden;opacity:0;transform:translateX(24px);transition:opacity .48s ease,transform .6s cubic-bezier(.2,.65,.3,1),visibility .6s;pointer-events:none;padding:38px 7.2%;overflow:hidden}
+      .slide.active{visibility:visible;opacity:1;transform:translateX(0);pointer-events:auto;z-index:2}
+      .slide.leaving{transform:translateX(-20px)}
+      .eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold-light);font-size:10px;font-weight:500;letter-spacing:2.6px;text-transform:uppercase;margin:0 0 24px}
+      .eyebrow:before{content:"";display:block;width:26px;height:1px;background:var(--gold)}
+      h1,h2,h3,p{margin:0}
+      h1,h2,h3{font-family:var(--serif);font-weight:400}
+      h1{font-size:clamp(47px,5.4vw,90px);line-height:1.06;letter-spacing:-2.9px}
+      h1 em,h2 em{font-style:normal;color:var(--gold-light)}
+      h2{font-size:clamp(36px,3.6vw,60px);line-height:1.12;letter-spacing:-1.4px}
+      h3{font-size:25px;line-height:1.2}
+      .lead{font-size:14px;line-height:1.85;color:#aab7bf;max-width:440px}
+      .lead strong{color:var(--paper);font-weight:400}
+      .title-block{position:relative;z-index:2}
+      .title-block .lead{margin-top:23px}
+      .section-number{position:absolute;top:25px;right:7.2%;font:italic 108px/1 var(--serif);color:rgba(185,154,91,.055);pointer-events:none}
+      .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;padding-top:20px;padding-bottom:18px}
+      .hero-copy{position:relative;z-index:3;margin-top:-4px}
+      .hero .eyebrow{margin-bottom:25px;font-size:9px}
+      .hero h1{max-width:650px}
+      .hero h1 .small-title{font-size:.72em;letter-spacing:-1.5px;display:block;line-height:1.25}
+      .hero .lead{margin-top:25px;font-size:13px;max-width:350px;line-height:1.8}
+      .primary{display:inline-flex;align-items:center;justify-content:center;gap:34px;background:var(--paper);color:var(--navy);padding:17px 23px;font-size:12px;font-weight:600;transition:background .2s,transform .2s;border:1px solid var(--paper)}
+      .primary:hover{background:var(--gold-light);border-color:var(--gold-light);transform:translateY(-2px)}
+      .hero .primary{margin-top:30px}
+      .hero-meta{display:flex;gap:35px;margin-top:31px}
+      .hero-meta>div{display:flex;align-items:center;gap:12px}
+      .hero-meta>div+div{border-left:1px solid var(--line);padding-left:30px}
+      .hero-meta strong{font:24px var(--serif);color:var(--paper)}
+      .hero-meta span{font-size:8px;letter-spacing:1.8px;color:var(--muted);line-height:1.7}
+      .hero-art{position:absolute;right:3.2%;width:51%;height:96%;top:1.5%;display:flex;align-items:center;justify-content:center}
+      .orbital{position:absolute;width:93%;aspect-ratio:1;max-height:100%;border:1px solid rgba(185,154,91,.07);border-radius:50%;transform:rotate(-22deg)}
+      .orbital:before,.orbital:after{content:"";position:absolute;inset:7%;border:1px dashed rgba(185,154,91,.1);border-radius:50%}
+      .orbital:after{inset:17%;border-style:solid}
+      .hero-art:after{content:"";position:absolute;bottom:12%;left:14%;width:75%;height:13%;background:rgba(0,0,0,.5);filter:blur(25px);border-radius:50%;transform:rotate(-9deg);z-index:-1}
+      .artifact{position:relative;width:97%;height:98%;filter:drop-shadow(0 24px 23px rgba(0,0,0,.5));transform:rotate(-13deg);z-index:2}
+      .art-caption{position:absolute;bottom:4%;right:3%;z-index:3;border-left:1px solid var(--gold);padding-left:12px;max-width:210px}
+      .art-caption strong{display:block;font:italic 15px var(--serif);color:var(--paper);margin-bottom:6px}
+      .art-caption span{font-size:8px;line-height:1.7;color:var(--muted);display:block;letter-spacing:.4px}
+      .vertical-note{position:absolute;right:-3%;top:39%;writing-mode:vertical-rl;font-size:8px;letter-spacing:2.5px;color:#667780}
+      .hero-coordinate{position:absolute;left:3%;top:19%;font:italic 11px var(--serif);color:#8c794e;z-index:3}
+      .hero-coordinate:after{content:"";width:70px;height:1px;background:var(--line);display:block;margin-top:10px}
+      .bottom-bar{position:relative;display:flex;justify-content:space-between;align-items:center;margin:0 4.3%;border-top:1px solid var(--line);gap:20px;z-index:5}
+      .bottom-left{display:flex;align-items:center;gap:24px;min-width:250px}
+      .contents-button{display:flex;align-items:center;gap:10px;font-size:11px;color:#c7ccc9;padding:10px 0}
+      .contents-button:hover{color:var(--gold-light)}
+      .contents-button .icon{width:17px;height:17px}
+      .current-chapter{border-left:1px solid var(--line);padding-left:24px;color:#788b98;font-size:10px}
+      .pagination{display:flex;gap:6px;position:absolute;left:50%;transform:translateX(-50%)}
+      .page-dot{padding:14px 0;width:21px;position:relative}
+      .page-dot:after{content:"";display:block;width:100%;height:2px;background:#2d3c48;transition:background .3s}
+      .page-dot.visited:after{background:#77704f}
+      .page-dot[aria-current=true]:after{background:var(--gold-light);height:3px}
+      .page-dot:hover:after{background:var(--gold-light)}
+      .navigation{display:flex;align-items:center;gap:19px}
+      .slide-count{font-size:11px;letter-spacing:2px;white-space:nowrap;color:#71828e;margin-right:4px}
+      .slide-count b{font-weight:400;color:var(--paper)}
+      .nav-button{height:38px;width:38px;border:1px solid #394550;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+      .nav-button:hover:not(:disabled){border-color:var(--gold);background:rgba(185,154,91,.1)}
+      .nav-button.next{background:var(--gold);border-color:var(--gold);color:var(--deep)}
+      .nav-button.next:hover:not(:disabled){background:var(--gold-light)}
+      .navigation .icon{width:18px;height:18px}
+      .progress-track{position:absolute;left:0;bottom:0;height:2px;width:100%;background:#162534;z-index:10}
+      .progress-value{height:100%;width:8.3333%;background:var(--gold);transition:width .5s ease}
+      .keyboard-hint{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:8px;color:#617581;white-space:nowrap;letter-spacing:.4px}
+      .split{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:7%;height:100%}
+      .split.wide-right{grid-template-columns:.9fr 1.1fr;gap:5%}
+      .facts{margin-top:30px}
+      .fact{border-top:1px solid var(--line);padding:15px 0;display:grid;grid-template-columns:24px 1fr;gap:14px}
+      .fact-num{color:var(--gold);font:italic 14px var(--serif);padding-top:3px}
+      .fact h3{font:18px var(--serif);color:var(--paper);margin-bottom:6px}
+      .fact p{font-size:12px;line-height:1.75;color:var(--muted);max-width:420px}
+      .statement{font:italic clamp(26px,2.8vw,45px)/1.45 var(--serif);color:var(--paper);max-width:720px}
+      .statement em{color:var(--gold-light);font-style:normal}
+      .definition{position:relative;padding:45px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(185,154,91,.05),transparent);overflow:hidden}
+      .definition:before{content:"“";font:180px var(--serif);position:absolute;top:-2px;left:15px;color:rgba(185,154,91,.09)}
+      .definition .statement{font-size:33px;position:relative}
+      .definition .tag{margin-top:25px}
+      .tag{font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+      .date-strip{display:flex;gap:20px;align-items:center;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
+      .date-strip strong{font:35px var(--serif);color:var(--gold-light);white-space:nowrap}
+      .date-strip p{font-size:11px;line-height:1.7;color:var(--muted)}
+      .landscape-art{position:absolute;bottom:10px;left:0;width:100%;height:42%;opacity:.55;pointer-events:none}
+      .culture{display:flex;flex-direction:column;justify-content:center;padding-bottom:13%}
+      .culture .title-block{max-width:650px}
+      .three-columns{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:45px;position:relative;z-index:2}
+      .column{border-top:1px solid var(--gold);padding-top:18px}
+      .column .tag{margin-bottom:12px}
+      .column h3{color:var(--paper);font-size:23px;margin-bottom:12px}
+      .column p{font-size:12px;line-height:1.8;color:var(--muted);max-width:300px}
+      .map-visual{width:100%;height:100%;max-height:490px;position:relative;display:flex;align-items:center}
+      .map-visual>svg{width:100%;height:100%}
+      .map-label{font:15px var(--serif);fill:var(--paper)}
+      .map-small{font:10px var(--sans);fill:#8fa3ab}
+      .cities .fact{padding:12px 0}
+      .cities .facts{margin-top:22px}
+      .cities h2{font-size:clamp(34px,3.3vw,52px)}
+      .source-note{font-size:9px;color:#718692;line-height:1.6;margin-top:17px}
+      .paper-panel{color:#362d22;background:var(--paper);position:relative;padding:36px 34px;box-shadow:0 18px 60px #0003;transform:rotate(2deg);border:1px solid #c4b68e}
+      .paper-panel:before{content:"";position:absolute;inset:9px;border:1px solid #a8946855;pointer-events:none}
+      .paper-panel .tag{color:#7b6847}
+      .paper-panel h3{font-size:23px;margin-top:15px}
+      .equation{font:italic 43px var(--serif);padding:25px 0;text-align:center;letter-spacing:2px}
+      .math-diagram{width:100%;height:190px}
+      .paper-caption{font-size:10px;line-height:1.7;color:#756447;margin-top:16px;text-align:center}
+      .text-button{display:inline-flex;align-items:center;gap:10px;font-size:11px;color:var(--gold-light);border-bottom:1px solid #b99a5b66;padding:6px 0;margin-top:18px}
+      .text-button .icon{width:15px;height:15px}
+      .paper-panel .text-button{color:#55452f;border-color:#8c754c66}
+      .solution{font-size:12px;line-height:1.8;padding-top:15px;border-top:1px solid #9a835255;margin-top:12px}
+      [hidden]{display:none!important}
+      .scholar-date{font-size:12px;letter-spacing:2px;color:var(--gold);display:block;margin-top:13px}
+      .medicine{display:grid;grid-template-columns:1fr .58fr 1fr;gap:35px;align-items:center;height:100%}
+      .medicine .title-block{grid-column:1/-1;align-self:end}
+      .medicine .title-block h2{font-size:clamp(34px,3.5vw,54px)}
+      .scholar{align-self:start;padding-top:12px;border-top:1px solid var(--line)}
+      .scholar h3{font-size:32px;color:var(--paper)}
+      .scholar .lead{font-size:12px;margin-top:18px}
+      .scholar .work{font:italic 19px/1.4 var(--serif);color:var(--gold-light);margin-top:25px}
+      .medicine-art{height:100%;max-height:270px;align-self:start;color:var(--gold)}
+      .medicine-art svg{width:100%;height:100%}
+      .medicine-bottom{grid-column:1/-1;display:flex;align-items:center;gap:20px;border-top:1px solid var(--line);padding-top:18px;align-self:start}
+      .medicine-bottom .tag{min-width:120px}
+      .medicine-bottom p{font-size:12px;line-height:1.7;color:var(--muted)}
+      .astronomy-visual{position:relative;aspect-ratio:1;width:100%;max-height:490px}
+      .astronomy-visual svg{width:100%;height:100%}
+      .astronomy-visual .art-caption{bottom:2%;right:0}
+      .scientist-list{display:flex;gap:28px;margin-top:26px;border-top:1px solid var(--line);padding-top:20px}
+      .scientist-list>div{flex:1}
+      .scientist-list h3{font-size:21px;color:var(--paper)}
+      .scientist-list span{font-size:10px;color:var(--gold);display:block;margin-top:7px;letter-spacing:1px}
+      .scientist-list p{font-size:11px;color:var(--muted);line-height:1.8;margin-top:12px}
+      .optics{display:flex;flex-direction:column;justify-content:center}
+      .optics-top{display:flex;align-items:flex-end;justify-content:space-between;gap:35px}
+      .optics-top .lead{font-size:12px;max-width:350px}
+      .optics-figure{height:245px;position:relative;margin-top:18px}
+      .optics-figure svg{width:100%;height:100%}
+      .method{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:15px}
+      .method>div{border-top:1px solid var(--line);padding-top:16px;position:relative}
+      .method span{font-size:9px;color:var(--gold);letter-spacing:2px}
+      .method h3{font:20px var(--serif);margin-top:8px}
+      .method p{font-size:11px;line-height:1.6;color:var(--muted);margin-top:6px}
+      .mechanism-visual{width:100%;height:100%;max-height:470px;position:relative}
+      .mechanism-visual>svg{width:100%;height:100%}
+      .mechanism-visual .art-caption{bottom:0}
+      .mechanism-visual.running .gear-one{animation:gear 9s linear infinite;transform-origin:282px 195px}
+      .mechanism-visual.running .gear-two{animation:gear 9s linear infinite reverse;transform-origin:382px 273px}
+      .mechanism-visual.running .water-drop{animation:drip 2s ease-in infinite}
+      @keyframes gear{to{transform:rotate(360deg)}}
+      @keyframes drip{0%{opacity:0;transform:translateY(-10px)}30%{opacity:1}100%{opacity:0;transform:translateY(65px)}}
+      .impact{display:flex;flex-direction:column;justify-content:center}
+      .impact-head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+      .impact-head .lead{max-width:350px;font-size:12px}
+      .timeline{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:75px}
+      .timeline:before{content:"";height:1px;background:linear-gradient(90deg,var(--gold),var(--gold),var(--teal));position:absolute;top:0;left:0;right:0}
+      .timeline-item{position:relative;padding-top:30px}
+      .timeline-item:before{content:"";height:7px;width:7px;border:1px solid var(--gold-light);background:var(--navy);transform:rotate(45deg);position:absolute;left:0;top:-4px}
+      .timeline-item .year{font:34px var(--serif);color:var(--gold-light)}
+      .timeline-item h3{font-size:21px;margin-top:16px}
+      .timeline-item p{font-size:12px;line-height:1.9;color:var(--muted);margin-top:12px}
+      .impact-note{font:italic 21px/1.4 var(--serif);color:var(--paper);border-left:2px solid var(--teal);padding-left:20px;margin-top:45px;max-width:900px}
+      .conclusion{display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column}
+      .conclusion .eyebrow{justify-content:center}
+      .conclusion h2{font-size:clamp(40px,4.6vw,75px);max-width:950px;line-height:1.18}
+      .conclusion .lead{max-width:690px;margin-top:27px;font-size:14px}
+      .conclusion-values{display:flex;gap:50px;margin:32px 0 0;padding:25px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+      .conclusion-values span{font:19px var(--serif);color:var(--paper)}
+      .conclusion-values b{font-weight:400;color:var(--gold);margin-right:10px}
+      .conclusion-actions{display:flex;gap:26px;align-items:center;margin-top:28px}
+      .conclusion .text-button{margin:0}
+      .conclusion-ornament{position:absolute;inset:0;width:100%;height:100%;opacity:.07;pointer-events:none}
+      .sources{display:flex;flex-direction:column;justify-content:center}
+      .sources h2{font-size:clamp(34px,3.4vw,54px)}
+      .sources-intro{color:var(--muted);font-size:12px;line-height:1.7;margin-top:15px}
+      .source-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 55px;margin-top:25px}
+      .source-entry{display:grid;grid-template-columns:22px 1fr;gap:12px;border-top:1px solid var(--line);padding:15px 0;text-decoration:none;position:relative}
+      .source-entry>span{font:italic 13px var(--serif);color:var(--gold)}
+      .source-entry h3{font:19px var(--serif);color:var(--paper);padding-right:22px}
+      .source-entry p{font-size:10px;line-height:1.75;color:var(--muted);margin-top:6px;padding-right:10px}
+      .source-entry .icon{position:absolute;right:0;top:17px;width:14px;height:14px;color:var(--gold)}
+      .source-entry:hover h3{color:var(--gold-light)}
+      .sources-bottom{display:flex;justify-content:space-between;gap:25px;margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+      .sources-bottom p{font-size:9px;line-height:1.8;color:#81949e;max-width:650px}
+      .sources-bottom .text-button{margin:0;white-space:nowrap;align-self:center}
+      .contents-dialog{background:var(--deep);color:var(--cream);border:1px solid #b99a5b4d;padding:35px;width:min(900px,90vw);max-height:85dvh;overflow:auto;box-shadow:0 40px 120px #0008}
+      .contents-dialog::backdrop{background:#070e18cc;backdrop-filter:blur(9px)}
+      .dialog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+      .dialog-header h2{font-size:34px}
+      .dialog-header .eyebrow{margin-bottom:9px;font-size:8px}
+      .contents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+      .contents-item{text-align:left;border:1px solid #b99a5b29;padding:17px;min-height:90px;transition:background .2s,border-color .2s}
+      .contents-item:hover,.contents-item.selected{border-color:var(--gold);background:#b99a5b0c}
+      .contents-item span{font:italic 15px var(--serif);color:var(--gold);display:block;margin-bottom:12px}
+      .contents-item strong{font:16px/1.4 var(--serif);color:var(--paper);font-weight:400}
+      .dialog-help{font-size:10px;color:var(--muted);margin-top:22px}
+      .toast{position:fixed;bottom:116px;left:50%;transform:translate(-50%,15px);background:var(--paper);color:var(--navy);font-size:12px;padding:14px 22px;opacity:0;visibility:hidden;transition:all .2s;z-index:50;box-shadow:0 8px 25px #0004;max-width:90vw;text-align:center}
+      .toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+      .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+      @media(min-width:1600px){.app{grid-template-rows:100px minmax(0,1fr) 110px}.hero .lead{font-size:15px;max-width:420px}.hero-meta{margin-top:40px}.hero .primary{margin-top:37px}.eyebrow{font-size:12px}.fact{padding:21px 0}.fact p,.lead{font-size:15px}.fact h3{font-size:23px}.column p,.scientist-list p,.timeline-item p{font-size:14px}.source-entry p{font-size:12px}.source-entry{padding:20px 0}.source-entry h3{font-size:23px}.medicine .lead{font-size:15px}.optics-figure{height:290px}}
+      @media(max-height:760px) and (min-width:801px){.app{grid-template-rows:65px minmax(0,1fr) 76px}.slide{padding-top:24px;padding-bottom:24px}.hero{padding-top:10px;padding-bottom:10px}.hero h1{font-size:clamp(45px,5vw,73px)}.hero .eyebrow{margin-bottom:18px}.hero .lead{margin-top:19px;font-size:12px;max-width:340px}.hero .primary{margin-top:20px;padding:13px 19px}.hero-meta{margin-top:23px}.hero-meta strong{font-size:22px}.hero-meta span{font-size:7px}.eyebrow{margin-bottom:18px}h2{font-size:clamp(32px,3.5vw,49px)}.lead{font-size:12px}.facts{margin-top:20px}.fact{padding:12px 0}.fact p{font-size:11px}.fact h3{font-size:17px}.three-columns{margin-top:30px}.column p{font-size:11px}.definition{padding:30px}.definition .statement{font-size:29px}.date-strip{margin-top:25px}.paper-panel{padding:26px 30px}.equation{padding:18px 0;font-size:36px}.math-diagram{height:155px}.medicine{gap:22px}.medicine .title-block h2{font-size:39px}.medicine-art{max-height:220px}.scholar h3{font-size:28px}.scholar .lead{margin-top:12px;font-size:11px}.scholar .work{margin-top:18px}.optics-figure{height:200px}.method h3{font-size:18px}.method p{font-size:10px}.timeline{margin-top:50px}.impact-note{margin-top:30px}.sources .eyebrow{margin-bottom:16px}.source-grid{margin-top:20px}.source-entry{padding:12px 0}.source-entry h3{font-size:17px}.source-entry p{font-size:9px}.sources-bottom{margin-top:10px}.keyboard-hint{bottom:6px}.conclusion-values{margin-top:23px;padding:20px 0}.conclusion .lead{font-size:12px}.conclusion-actions{margin-top:22px}}
+      @media(max-width:1050px){.collection-label{display:none}.current-chapter{display:none}.bottom-left{min-width:0}.pagination{gap:5px}.page-dot{width:14px}.slide{padding-left:6%;padding-right:6%}.hero-art{right:1%;width:53%}.hero .lead{max-width:310px}.hero h1{font-size:5.8vw}.hero-meta{gap:20px}.hero-meta>div+div{padding-left:20px}.eyebrow{letter-spacing:1.8px;font-size:9px}.navigation{gap:12px}.three-columns{gap:25px}.scientist-list{gap:20px}.sources-bottom p{max-width:500px}.source-grid{gap:0 30px}.definition .statement{font-size:27px}.medicine{gap:24px}.optics-top .lead{max-width:270px}.impact-head .lead{max-width:280px}.timeline{gap:23px}}
+      @media(max-width:800px){.app{grid-template-rows:65px minmax(0,1fr) 84px}.topbar,.bottom-bar{margin-left:5%;margin-right:5%}.brand{font-size:9px;letter-spacing:1.5px;gap:9px}.brand-mark{width:28px;height:28px}.header-right{gap:13px}.header-divider{display:none}.slide{padding:26px 6%}.hero{align-items:center}.hero h1{font-size:clamp(38px,6.6vw,55px);letter-spacing:-1.6px}.hero h1 .small-title{font-size:.72em;letter-spacing:-.8px}.hero .eyebrow{font-size:7px;letter-spacing:1.4px}.hero .lead{font-size:11px;max-width:280px;margin-top:20px}.hero .primary{font-size:10px;padding:13px 15px;gap:18px;margin-top:22px}.hero-meta{gap:15px;margin-top:24px}.hero-meta strong{font-size:20px}.hero-meta span{font-size:6px;letter-spacing:1px}.hero-meta>div{gap:7px}.hero-meta>div+div{padding-left:15px}.hero-art{right:-4%;width:56%;height:85%;top:7%}.art-caption{bottom:2%;right:10%;max-width:165px}.art-caption strong{font-size:12px}.art-caption span{font-size:7px}.hero-coordinate,.vertical-note{display:none}.keyboard-hint{font-size:7px;bottom:5px}.pagination{gap:4px}.page-dot{width:11px}.bottom-left{font-size:10px}.contents-button{font-size:10px;gap:7px}.navigation{gap:10px}.nav-button{height:32px;width:32px}.slide-count{font-size:10px;letter-spacing:1px;margin-right:2px}.split{gap:5%}h2{font-size:35px}.eyebrow{font-size:8px;letter-spacing:1.5px;margin-bottom:17px}.lead{font-size:11px;line-height:1.8}.title-block .lead{margin-top:18px}.fact{padding:12px 0;gap:8px;grid-template-columns:18px 1fr}.fact h3{font-size:17px}.fact p{font-size:10px;line-height:1.6}.facts{margin-top:20px}.definition{padding:25px}.definition .statement{font-size:24px}.date-strip strong{font-size:27px}.date-strip p{font-size:9px}.date-strip{gap:14px;margin-top:22px}.three-columns{gap:20px;margin-top:30px}.column h3{font-size:20px}.column p{font-size:10px}.column .tag{font-size:8px}.culture{padding-bottom:16%}.cities h2{font-size:31px}.paper-panel{padding:25px 23px}.paper-panel h3{font-size:19px}.equation{font-size:32px;padding:19px 0}.math-diagram{height:150px}.paper-caption{font-size:9px}.solution{font-size:10px}.medicine{gap:20px}.medicine .title-block h2{font-size:34px}.scholar h3{font-size:26px}.scholar .lead{font-size:10px;margin-top:14px}.scholar .work{font-size:17px;margin-top:17px}.scholar-date{font-size:10px}.medicine-bottom p{font-size:10px}.medicine-art{max-height:220px}.scientist-list h3{font-size:18px}.scientist-list p{font-size:10px}.scientist-list{gap:15px}.astronomy-visual .art-caption{right:0}.optics-top .lead{max-width:250px;font-size:10px}.optics-figure{height:210px}.method{gap:17px}.method h3{font-size:17px}.method p{font-size:10px}.impact-head .lead{max-width:230px;font-size:10px}.timeline{gap:20px;margin-top:45px}.timeline-item .year{font-size:28px}.timeline-item h3{font-size:18px}.timeline-item p{font-size:10px}.impact-note{font-size:18px;margin-top:30px}.conclusion h2{font-size:44px}.conclusion .lead{font-size:12px}.conclusion-values{gap:25px;margin-top:25px}.conclusion-values span{font-size:15px}.source-entry h3{font-size:16px}.source-entry p{font-size:9px}.source-entry{padding:12px 0}.sources-intro{font-size:10px}.sources-bottom p{font-size:8px}.sources-bottom{margin-top:12px}.source-grid{margin-top:20px}.sources-bottom .text-button{font-size:9px}}
+      @media(max-width:580px){.app{grid-template-rows:58px minmax(0,1fr) 88px}.topbar{gap:8px}.brand{font-size:8px;letter-spacing:1.3px}.header-right{gap:7px}.icon-button{width:28px;height:28px}.brand-mark{width:25px;height:25px}.slide{padding:24px 7%;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#b99a5b44 transparent}.hero{display:flex;align-items:flex-start;flex-direction:column;justify-content:center;overflow:hidden}.hero-copy{margin-top:-10px;width:100%}.hero .eyebrow{font-size:7px;letter-spacing:1.4px;max-width:85%}.hero h1{font-size:clamp(39px,10vw,61px);max-width:100%;position:relative;z-index:2}.hero h1 .small-title{font-size:.72em}.hero .lead{max-width:66%;font-size:11px;position:relative;z-index:2}.hero .primary{position:relative;z-index:3}.hero-meta{margin-top:28px}.hero-art{width:72%;height:63%;top:32%;right:-29%;opacity:.6;z-index:-1}.hero-art:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy),transparent 75%);z-index:3}.hero-art .art-caption{display:none}.artifact{width:100%;height:100%}.pagination{display:none}.keyboard-hint{font-size:7px}.bottom-left{min-width:0}.navigation{gap:12px}.nav-button{width:34px;height:34px}.slide-count{font-size:11px}.split,.split.wide-right{display:flex;flex-direction:column;justify-content:center;gap:24px;min-height:100%;height:auto}.split>*{width:100%}h2{font-size:34px}.definition{padding:22px}.definition .statement{font-size:23px}.facts{margin-top:15px}.fact{padding:10px 0}.fact h3{font-size:17px}.fact p{font-size:11px}.date-strip{margin-top:16px;padding-top:15px}.date-strip strong{font-size:27px}.date-strip p{font-size:10px}.title-block .lead{font-size:11px;margin-top:15px}.section-number{font-size:80px;right:7%;top:20px}.culture{display:flex;justify-content:center;padding-bottom:25px}.three-columns{grid-template-columns:1fr;gap:15px;margin-top:23px}.column{display:grid;grid-template-columns:70px 1fr;gap:5px 12px;padding-top:12px}.column .tag{grid-row:1/3;padding-top:4px;font-size:8px}.column h3{font-size:20px;margin:0}.column p{font-size:10px;max-width:none}.landscape-art{opacity:.15;height:42%}.cities .split{gap:5px}.cities h2{font-size:33px}.cities .facts{margin-top:16px}.cities .fact{padding:9px 0}.cities .fact p{font-size:10px}.map-visual{max-height:210px}.source-note{font-size:8px;margin-top:8px}.paper-panel{max-width:350px;transform:rotate(1deg);padding:24px}.paper-panel h3{font-size:18px}.equation{font-size:29px;padding:14px 0}.math-diagram{height:120px}.math-slide .split{gap:20px}.math-slide .facts{margin-top:15px}.math-slide .fact{padding:9px 0}.math-slide .paper-caption{display:none}.math-slide .text-button{margin-top:8px;font-size:10px}.solution{font-size:10px}.medicine{grid-template-columns:1fr 1fr;gap:20px;align-content:center}.medicine .title-block{align-self:auto}.medicine .title-block h2{font-size:31px}.medicine-art{display:none}.scholar{align-self:auto}.scholar h3{font-size:24px}.scholar .lead{font-size:10px}.scholar .work{font-size:17px;margin-top:15px}.medicine-bottom{gap:12px;padding-top:13px;flex-direction:column;align-items:flex-start}.medicine-bottom .tag{font-size:8px}.medicine-bottom p{font-size:10px}.astronomy-slide .split{gap:5px}.astronomy-visual{max-height:230px;width:230px;align-self:center}.astronomy-visual .art-caption{display:none}.scientist-list{margin-top:18px;padding-top:15px}.scientist-list p{font-size:10px;line-height:1.7}.optics{min-height:100%;justify-content:center}.optics-top{display:block}.optics-top .lead{max-width:none;font-size:11px;margin-top:15px}.optics h2{font-size:31px}.optics-figure{height:155px;margin-top:10px}.method{grid-template-columns:1fr 1fr;gap:16px;margin-top:7px}.method>div{padding-top:10px}.method h3{font-size:17px;margin-top:6px}.method p{font-size:10px}.method span{font-size:8px}.engineering-slide .split{gap:7px}.mechanism-visual{height:260px;max-width:320px;margin:auto}.mechanism-visual .art-caption{display:none}.engineering-slide .facts{margin-top:15px}.engineering-slide .fact p{font-size:10px}.engineering-slide .text-button{margin-top:8px}.impact{min-height:100%;justify-content:center}.impact-head{display:block}.impact-head .lead{max-width:none;margin-top:15px;font-size:11px}.timeline{grid-template-columns:1fr 1fr;gap:23px;margin-top:25px}.timeline:before{display:none}.timeline-item{padding-top:12px;border-top:1px solid var(--line)}.timeline-item:before{width:5px;height:5px;top:-3px}.timeline-item .year{font-size:25px}.timeline-item h3{font-size:18px;margin-top:9px}.timeline-item p{font-size:10px;margin-top:8px;line-height:1.7}.impact-note{font-size:17px;margin-top:22px;padding-left:14px}.conclusion{min-height:100%;justify-content:center}.conclusion h2{font-size:35px}.conclusion .lead{font-size:11px;margin-top:20px}.conclusion-values{gap:15px;flex-wrap:wrap;justify-content:center;padding:18px 0;margin-top:22px}.conclusion-values span{font-size:14px}.conclusion-actions{gap:18px;flex-direction:column;margin-top:23px}.conclusion-actions .primary{font-size:11px;padding:13px 18px}.conclusion-actions .text-button{font-size:10px}.sources{min-height:100%;justify-content:center}.sources h2{font-size:30px}.sources-intro{font-size:10px;margin-top:10px}.source-grid{grid-template-columns:1fr;gap:0;margin-top:16px}.source-entry{padding:10px 0;grid-template-columns:18px 1fr;gap:10px}.source-entry h3{font-size:16px}.source-entry p{font-size:9px;margin-top:4px;line-height:1.5}.source-entry .icon{top:12px}.sources-bottom{flex-direction:column;gap:10px;padding-top:12px}.sources-bottom .text-button{align-self:flex-start}.contents-dialog{padding:24px}.contents-grid{grid-template-columns:1fr 1fr;gap:10px}.contents-item{padding:13px;min-height:83px}.contents-item strong{font-size:14px}.contents-item span{font-size:13px;margin-bottom:9px}.dialog-header h2{font-size:29px}.dialog-help{font-size:9px}.toast{bottom:98px;font-size:11px}}
+      @media(max-height:550px) and (min-width:581px){.app{grid-template-rows:46px minmax(0,1fr) 58px}.slide{padding-top:15px;padding-bottom:15px;overflow-y:auto}.hero{overflow:hidden}.hero h1{font-size:42px}.hero .eyebrow{margin-bottom:12px;font-size:7px}.hero .lead{margin-top:12px;font-size:10px;max-width:290px}.hero .primary{margin-top:15px;padding:10px 14px;font-size:10px}.hero-meta{margin-top:15px}.hero-meta strong{font-size:18px}.hero-art{height:100%;top:0}.keyboard-hint{display:none}.eyebrow{margin-bottom:12px;font-size:7px}h2{font-size:30px}.facts{margin-top:12px}.fact{padding:8px 0}.fact h3{font-size:16px}.fact p{font-size:10px}.title-block .lead{margin-top:12px;font-size:10px}.paper-panel{padding:18px 23px}.math-diagram{height:110px}.paper-panel h3{font-size:17px;margin-top:10px}.equation{font-size:28px;padding:12px 0}.paper-caption{display:none}.three-columns{margin-top:22px}.culture{padding-bottom:11%}.medicine{gap:13px}.medicine .title-block h2{font-size:30px}.medicine-art{max-height:150px}.scholar .lead{font-size:9px}.scholar h3{font-size:23px}.scholar .work{font-size:16px;margin-top:12px}.medicine-bottom{padding-top:10px}.medicine-bottom p{font-size:9px}.optics-figure{height:145px}.method{margin-top:6px}.method>div{padding-top:10px}.method h3{font-size:15px}.method p{font-size:9px}.timeline{margin-top:30px}.timeline-item{padding-top:20px}.timeline-item .year{font-size:25px}.timeline-item h3{font-size:17px;margin-top:12px}.timeline-item p{font-size:9px}.impact-note{font-size:16px;margin-top:20px}.conclusion h2{font-size:37px}.conclusion .lead{font-size:11px;margin-top:17px}.conclusion-values{margin-top:18px;padding:14px 0}.conclusion-actions{margin-top:18px}.conclusion-actions .primary{padding:12px 18px;font-size:10px}.sources h2{font-size:30px}.sources-intro{font-size:9px;margin-top:10px}.source-grid{margin-top:14px}.source-entry{padding:9px 0}.source-entry h3{font-size:15px}.source-entry p{font-size:8px}.sources-bottom{margin-top:8px;padding-top:10px}.sources-bottom p{font-size:7px}}
+      @media(min-width:581px) and (max-width:1050px) and (min-height:551px) and (max-height:680px){
+        .slide{padding-top:22px;padding-bottom:22px}
+        .culture{padding-bottom:45px}
+        .culture h2,.cities h2,.medicine .title-block h2,.impact h2,.sources h2{font-size:30px}
+        .three-columns{margin-top:25px}
+        .cities .facts{margin-top:14px}
+        .cities .fact{padding:8px 0}
+        .cities .fact p{font-size:9px}
+        .medicine{grid-template-columns:1fr 1fr;gap:16px 35px;align-content:center}
+        .medicine-art{display:none}
+        .medicine-bottom{padding-top:13px}
+        .medicine-bottom p{font-size:9px}
+        .scholar .lead{font-size:10px}
+        .timeline{margin-top:32px}
+        .timeline-item{padding-top:23px}
+        .timeline-item .year{font-size:26px}
+        .timeline-item h3{font-size:17px}
+        .timeline-item p{font-size:9px}
+        .impact-note{font-size:17px;margin-top:23px}
+        .source-grid{margin-top:16px}
+        .source-entry{padding:10px 0}
+        .source-entry h3{font-size:15px}
+        .source-entry p{font-size:8px}
+        .sources-intro{font-size:9px}
+        .sources-bottom p{font-size:7px}
+      }
+      /* CINEMATIC MOTION SYSTEM */
+      .stage{perspective:1400px;isolation:isolate}
+      .stage:before,.stage:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1}
+      .stage:before{
+        opacity:.42;
+        background:
+          radial-gradient(ellipse at 76% 28%,rgba(185,154,91,.13),transparent 34%),
+          radial-gradient(ellipse at 18% 82%,rgba(52,124,128,.12),transparent 40%);
+        animation:ambientDrift 18s ease-in-out infinite alternate;
+      }
+      .stage:after{
+        opacity:.11;
+        background-image:linear-gradient(rgba(212,188,131,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(212,188,131,.16) 1px,transparent 1px);
+        background-size:76px 76px;
+        mask-image:radial-gradient(ellipse at center,#000 0%,transparent 76%);
+      }
+      .slide{
+        transform:translate3d(34px,8px,0) scale(.985);
+        filter:blur(7px);
+        transition:opacity .58s ease,transform .78s cubic-bezier(.19,1,.22,1),filter .68s ease,visibility .78s;
+        backface-visibility:hidden;
+      }
+      .slide.active{transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+      .slide.leaving{transform:translate3d(-30px,-5px,0) scale(1.012);filter:blur(5px)}
+      .stage[data-direction="backward"] .slide.leaving{transform:translate3d(30px,5px,0) scale(1.012)}
+      .topbar{animation:headerDrop .9s cubic-bezier(.2,.8,.2,1) both}
+      .bottom-bar{animation:footerRise .9s .18s cubic-bezier(.2,.8,.2,1) both}
+      .hero-copy>.eyebrow{animation:cinematicRise .8s .16s cubic-bezier(.2,.8,.2,1) both}
+      .hero-copy>h1{animation:cinematicRise 1s .28s cubic-bezier(.2,.8,.2,1) both}
+      .hero-copy>.lead{animation:cinematicRise .85s .46s cubic-bezier(.2,.8,.2,1) both}
+      .hero-copy>.primary{animation:cinematicRise .85s .58s cubic-bezier(.2,.8,.2,1) both}
+      .hero-copy>.hero-meta{animation:cinematicRise .85s .7s cubic-bezier(.2,.8,.2,1) both}
+      .student-credit{margin-top:20px;padding-left:13px;border-left:1px solid var(--gold);display:flex;align-items:center;gap:12px;animation:cinematicRise .85s .82s cubic-bezier(.2,.8,.2,1) both}
+      .student-credit span{font-size:8px;letter-spacing:2px;color:var(--gold);white-space:nowrap}
+      .student-credit strong{font:italic 17px var(--serif);font-weight:400;color:var(--paper);letter-spacing:.2px}
+      .hero-art{animation:artDrift 12s 1.2s ease-in-out infinite}
+      .hero-art .artifact{animation:artifactReveal 1.65s .22s cubic-bezier(.16,1,.3,1) both}
+      .hero-art .orbital{animation:orbitTurn 82s linear infinite}
+      .hero-art .art-caption{animation:captionReveal .9s 1.15s cubic-bezier(.2,.8,.2,1) both}
+      .hero-coordinate{animation:cinematicRise .8s .95s both}
+      .progress-value{position:relative;overflow:hidden;background:linear-gradient(90deg,#8e7444,var(--gold-light),var(--gold));box-shadow:0 0 14px rgba(185,154,91,.24)}
+      .progress-value:after{content:"";position:absolute;inset:0;width:35%;background:linear-gradient(90deg,transparent,rgba(255,246,215,.65),transparent);animation:progressShine 3.8s ease-in-out infinite}
+      .slide.active:not(.hero) .title-block{animation:cinematicRise .78s .08s cubic-bezier(.2,.8,.2,1) both}
+      .slide.active:not(.hero) .section-number{animation:numberReveal 1s .2s cubic-bezier(.2,.8,.2,1) both}
+      .slide.active:not(.hero) .definition{animation:panelReveal .95s .32s cubic-bezier(.2,.8,.2,1) both}
+      .slide.active:not(.hero) .fact{animation:cinematicRise .72s both}
+      .slide.active:not(.hero) .fact:nth-child(1){animation-delay:.26s}
+      .slide.active:not(.hero) .fact:nth-child(2){animation-delay:.38s}
+      .slide.active:not(.hero) .fact:nth-child(3){animation-delay:.5s}
+      .slide.active:not(.hero) .column{animation:cinematicRise .82s both}
+      .slide.active:not(.hero) .column:nth-child(1){animation-delay:.22s}
+      .slide.active:not(.hero) .column:nth-child(2){animation-delay:.36s}
+      .slide.active:not(.hero) .column:nth-child(3){animation-delay:.5s}
+      .slide.active:not(.hero) .map-visual,.slide.active:not(.hero) .paper-panel,.slide.active:not(.hero) .medicine-art,.slide.active:not(.hero) .astronomy-visual,.slide.active:not(.hero) .mechanism-visual,.slide.active:not(.hero) .optics-figure{animation:visualReveal 1s .32s cubic-bezier(.2,.8,.2,1) both}
+      .slide.active:not(.hero) .scholar{animation:cinematicRise .8s .25s both}
+      .slide.active:not(.hero) .method>div{animation:cinematicRise .72s both}
+      .slide.active:not(.hero) .method>div:nth-child(1){animation-delay:.2s}
+      .slide.active:not(.hero) .method>div:nth-child(2){animation-delay:.31s}
+      .slide.active:not(.hero) .method>div:nth-child(3){animation-delay:.42s}
+      .slide.active:not(.hero) .method>div:nth-child(4){animation-delay:.53s}
+      .slide.active:not(.hero) .timeline-item{animation:cinematicRise .78s both}
+      .slide.active:not(.hero) .timeline-item:nth-child(1){animation-delay:.24s}
+      .slide.active:not(.hero) .timeline-item:nth-child(2){animation-delay:.36s}
+      .slide.active:not(.hero) .timeline-item:nth-child(3){animation-delay:.48s}
+      .slide.active:not(.hero) .timeline-item:nth-child(4){animation-delay:.6s}
+      .slide.active:not(.hero) .conclusion-values span{animation:cinematicRise .75s both}
+      .slide.active:not(.hero) .conclusion-values span:nth-child(1){animation-delay:.3s}
+      .slide.active:not(.hero) .conclusion-values span:nth-child(2){animation-delay:.42s}
+      .slide.active:not(.hero) .conclusion-values span:nth-child(3){animation-delay:.54s}
+      .slide.active:not(.hero) .source-entry{animation:cinematicRise .7s both}
+      .slide.active:not(.hero) .source-entry:nth-child(1){animation-delay:.2s}
+      .slide.active:not(.hero) .source-entry:nth-child(2){animation-delay:.28s}
+      .slide.active:not(.hero) .source-entry:nth-child(3){animation-delay:.36s}
+      .slide.active:not(.hero) .source-entry:nth-child(4){animation-delay:.44s}
+      .slide.active:not(.hero) .source-entry:nth-child(5){animation-delay:.52s}
+      .slide.active:not(.hero) .source-entry:nth-child(6){animation-delay:.6s}
+      .nav-button,.contents-button,.icon-button,.primary,.text-button,.contents-item{transition:transform .28s cubic-bezier(.2,.8,.2,1),background .28s,border-color .28s,color .28s,box-shadow .28s}
+      .nav-button:hover:not(:disabled),.icon-button:hover,.contents-button:hover{transform:translateY(-2px)}
+      .primary:hover{box-shadow:0 10px 28px rgba(185,154,91,.16)}
+      .page-dot[aria-current=true]:after{box-shadow:0 0 10px rgba(212,188,131,.5)}
+      @keyframes cinematicRise{0%{opacity:0;transform:translate3d(0,24px,0);filter:blur(5px)}100%{opacity:1;transform:translate3d(0,0,0);filter:blur(0)}}
+      @keyframes headerDrop{0%{opacity:0;transform:translateY(-18px)}100%{opacity:1;transform:translateY(0)}}
+      @keyframes footerRise{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+      @keyframes artDrift{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-11px,0)}}
+      @keyframes artifactReveal{0%{opacity:0;transform:rotate(-25deg) scale(.82);filter:blur(14px) drop-shadow(0 24px 23px rgba(0,0,0,0))}100%{opacity:1;transform:rotate(-13deg) scale(1);filter:blur(0) drop-shadow(0 24px 23px rgba(0,0,0,.5))}}
+      @keyframes orbitTurn{from{transform:rotate(-22deg)}to{transform:rotate(338deg)}}
+      @keyframes captionReveal{0%{opacity:0;transform:translateX(18px)}100%{opacity:1;transform:translateX(0)}}
+      @keyframes panelReveal{0%{opacity:0;clip-path:inset(0 0 100% 0)}100%{opacity:1;clip-path:inset(0 0 0 0)}}
+      @keyframes visualReveal{0%{opacity:0;filter:blur(9px)}100%{opacity:1;filter:blur(0)}}
+      @keyframes numberReveal{0%{opacity:0;transform:translateY(-14px) scale(.92)}100%{opacity:1;transform:translateY(0) scale(1)}}
+      @keyframes ambientDrift{0%{transform:translate3d(-1.5%,0,0) scale(1)}100%{transform:translate3d(1.5%,-1%,0) scale(1.05)}}
+      @keyframes progressShine{0%,35%{transform:translateX(-130%)}75%,100%{transform:translateX(340%)}}
+      @media(max-width:800px){.student-credit{margin-top:15px}.student-credit strong{font-size:15px}.student-credit span{font-size:7px}}
+      @media(max-width:580px){.hero{overflow-y:auto;overflow-x:hidden}.student-credit{gap:9px}.student-credit strong{font-size:14px}.student-credit span{font-size:7px}.stage:after{background-size:54px 54px}}
+      @media(prefers-reduced-motion:reduce){
+        .stage:before,.topbar,.bottom-bar,.hero-copy>*,.student-credit,.hero-art,.hero-art .artifact,.hero-art .orbital,.hero-art .art-caption,.hero-coordinate,.progress-value:after,.slide.active:not(.hero) *{animation:none!important}
+        .slide,.nav-button,.contents-button,.icon-button,.primary,.text-button,.contents-item{transition:none!important;filter:none!important}
+      }
+
+      @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+      @media print{html,body{height:auto;overflow:visible;background:white}.app{display:block;height:auto}.topbar,.bottom-bar,.progress-track,.toast,.contents-dialog{display:none}.stage{overflow:visible}.slide{visibility:visible!important;opacity:1!important;transform:none!important;position:relative;inset:auto;page-break-after:always;width:100%;height:175mm;background:var(--navy);color:var(--cream);overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact}.hero{display:grid}.hero-art{position:absolute}.slide:last-child{page-break-after:auto}button{visibility:hidden}}
+    </style>
+  </head>
+  <body>
+    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3cb8d"/><stop offset=".27" stop-color="#a58443"/><stop offset=".46" stop-color="#d8ba71"/><stop offset=".71" stop-color="#786031"/><stop offset="1" stop-color="#bda166"/></linearGradient>
+        <linearGradient id="brassEdge" x1="0" y1="0" x2="1" y2=".8"><stop stop-color="#f0d89d"/><stop offset=".35" stop-color="#b69a59"/><stop offset=".65" stop-color="#70522c"/><stop offset="1" stop-color="#dac185"/></linearGradient>
+        <radialGradient id="agedMetal"><stop stop-color="#af955e"/><stop offset=".5" stop-color="#99804c"/><stop offset=".85" stop-color="#73623e"/><stop offset="1" stop-color="#ad8e4c"/></radialGradient>
+        <radialGradient id="patina"><stop stop-color="#62716a"/><stop offset=".6" stop-color="#4b584e"/><stop offset="1" stop-color="#31433d"/></radialGradient>
+        <linearGradient id="parchment" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c8b889"/><stop offset=".4" stop-color="#aa9667"/><stop offset="1" stop-color="#776844"/></linearGradient>
+        <linearGradient id="mapFade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#102331"/><stop offset="1" stop-color="#0c1825"/></linearGradient>
+        <filter id="metalGrain" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".48" numOctaves="3" seed="11" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".15"/></feComponentTransfer><feComposite in2="SourceGraphic" operator="in"/><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+        <pattern id="geoPattern" width="68" height="68" patternUnits="userSpaceOnUse"><path d="M34 0 44 24 68 34 44 44 34 68 24 44 0 34 24 24Z M0 0 34 34 68 0 M0 68 34 34 68 68" stroke="#b99a5b" stroke-width=".7" fill="none"/></pattern>
+        <pattern id="paperScript" width="100" height="27" patternUnits="userSpaceOnUse"><path d="M4 17q5-8 7-3t8-2q2 12 9 3t9-2q1 7 7 1l9-5q-4 11 5 8l12-3q-4-10 0-8t1 8l12-2q-1 9 10-1M22 6h2m12 1h3m25 14h3m21-16h3" fill="none" stroke="#5a4728" stroke-width="1.4" stroke-linecap="round"/></pattern>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+        <symbol id="i-left" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></symbol>
+        <symbol id="i-right" viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></symbol>
+        <symbol id="i-expand" viewBox="0 0 24 24"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></symbol>
+        <symbol id="i-collapse" viewBox="0 0 24 24"><path d="M4 9h5V4m6 0v5h5M9 20v-5H4m16 0h-5v5"/></symbol>
+        <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6"/><rect x="15" y="3" width="6" height="6"/><rect x="3" y="15" width="6" height="6"/><rect x="15" y="15" width="6" height="6"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+        <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6m-9 3 9-9M10 4H4v16h16v-6"/></symbol>
+        <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/></symbol>
+        <symbol id="rosette" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width=".9"><path d="m20 2 5.3 9 10.3-1.3L34 20l1.6 10.3L25.3 29 20 38l-5.3-9-10.3 1.3L6 20 4.4 9.7 10.3 1.3Z"/><path d="m20 7 9 4 4 9-4 9-9 4-9-4-4-9 4-9Z"/><path d="m20 2 15.6 28.3L4.4 9.7 20 38 35.6 9.7 4.4 30.3Z"/><circle cx="20" cy="20" r="6"/><circle cx="20" cy="20" r="2"/></g></symbol>
+        <symbol id="astrolabe" viewBox="0 0 600 680">
+          <g transform="rotate(9 300 360)">
+            <g opacity=".64" transform="translate(87 134) rotate(12 210 235)">
+              <path d="m0 10 398-10 15 462-412 9Z" fill="url(#parchment)" stroke="#6c5b38"/>
+              <path d="m12 24 372-10 12 430-386 12Z" fill="none" stroke="#66522c" stroke-width="2"/>
+              <path d="M30 65h330v345H30Z" fill="url(#paperScript)" opacity=".55"/>
+              <text x="200" y="54" text-anchor="middle" fill="#4b3d23" font-size="23" font-family="Georgia,serif" lang="ar">كتاب العلم</text>
+              <circle cx="200" cy="300" r="67" fill="none" stroke="#645130"/><circle cx="200" cy="300" r="44" fill="none" stroke="#645130"/><path d="m135 300 120-42-25 99-95-57 125 8" fill="none" stroke="#645130"/>
+            </g>
+            <g filter="url(#metalGrain)">
+              <circle cx="300" cy="68" r="36" fill="url(#brassEdge)" stroke="#5e4826" stroke-width="2"/>
+              <circle cx="300" cy="68" r="24" fill="#14232d" stroke="#e0c488" stroke-width="2"/>
+              <path d="m278 95-9 31-29 15 13 28h94l13-28-29-15-9-31Z" fill="url(#brass)" stroke="#624b29" stroke-width="2"/>
+              <path d="M281 111h38m-46 20h54m-65 19h76" fill="none" stroke="#5b4728" stroke-width="2"/>
+              <circle cx="300" cy="375" r="253" fill="#4d3d25" stroke="#241e16" stroke-width="3"/>
+              <circle cx="300" cy="371" r="253" fill="url(#brassEdge)" stroke="#ddc486" stroke-width="1.7"/>
+              <circle cx="300" cy="371" r="243" fill="url(#agedMetal)" stroke="#65502e" stroke-width="1.3"/>
+              <circle cx="300" cy="371" r="234" fill="none" stroke="#e1c68a" stroke-width="1"/>
+              <circle cx="300" cy="371" r="225" fill="none" stroke="#4f4127" stroke-width="1"/>
+              <g id="astrolabe-ticks" stroke="#3e3825" stroke-width="1"/>
+              <g id="astrolabe-numbers" fill="#443a24" font-family="Georgia,serif" font-size="11" text-anchor="middle"/>
+              <circle cx="300" cy="371" r="204" fill="url(#patina)" stroke="#574728" stroke-width="4"/>
+              <circle cx="300" cy="371" r="196" fill="none" stroke="#ac9457" stroke-width="1"/>
+              <g stroke="#c4ad72" stroke-width=".7" fill="none" opacity=".6">
+                <circle cx="300" cy="371" r="175"/><circle cx="300" cy="371" r="140"/><circle cx="300" cy="371" r="102"/><circle cx="300" cy="371" r="65"/>
+                <ellipse cx="300" cy="320" rx="184" ry="131"/><ellipse cx="300" cy="295" rx="160" ry="105"/><ellipse cx="300" cy="266" rx="118" ry="74"/><ellipse cx="300" cy="248" rx="72" ry="45"/>
+                <path d="M104 371h392M300 175v392M161 232l278 278M161 510l278-278M119 296l362 150M225 190l150 362M119 446l362-150M225 552l150-362"/>
+                <path d="M119 443q181-330 362 0M142 485q158-360 316 0M179 525q121-380 242 0M219 550q81-400 162 0"/>
+              </g>
+              <g fill="none" stroke="url(#brassEdge)" stroke-width="9">
+                <circle cx="300" cy="371" r="189"/>
+                <circle cx="321" cy="323" r="128" transform="rotate(-25 321 323)"/>
+                <path d="M118 419q96-89 81-196M159 491q48-57 118-61t102 95M202 532q37-89 106-100t159-77M141 274q109 70 170 12t81-77M109 374q59 36 117 19t75-62M301 182q-35 104 20 141t159 90M300 560q-22-104 24-143t119 62"/>
+              </g>
+              <g fill="url(#brass)" stroke="#574629" stroke-width="1">
+                <path d="m183 242 7 47 15-42 7 40 12-63 10 40 9-54 7 60 17-27-13 50-33 15-18-8-20-58Z"/>
+                <path d="m420 248-43 9 27 12-42 9 38 8-39 13 62-2 17-18Z"/>
+                <path d="m151 430 32-27-7 38 33-17-22 42 42-19-34 34-23-4Z"/>
+                <path d="m353 503-26-26 2 39-24-33 9 57 30 13Z"/>
+                <path d="m459 387-29-27 11 42-32-17 20 39-36-9 50 37Z"/>
+              </g>
+              <g fill="#d7bf80">
+                <circle cx="204" cy="293" r="3"/><circle cx="392" cy="274" r="3"/><circle cx="171" cy="458" r="3"/><circle cx="339" cy="521" r="3"/><circle cx="443" cy="414" r="3"/><circle cx="278" cy="222" r="2"/>
+              </g>
+              <g font-family="Georgia,serif" font-size="14" fill="#c7b079" text-anchor="middle">
+                <text x="299" y="211">الشمال</text><text x="299" y="546">الجنوب</text><text x="144" y="373" transform="rotate(-90 144 373)">المشرق</text><text x="455" y="373" transform="rotate(90 455 373)">المغرب</text>
+                <text x="293" y="255" font-size="9">الدائرة</text><text x="250" y="470" font-size="10">ارتفاع</text>
+              </g>
+              <g transform="rotate(-32 300 371)">
+                <path d="M73 360h454l13 11-13 11H73l-13-11Z" fill="url(#brassEdge)" stroke="#594426" stroke-width="1.5"/>
+                <path d="M81 371h438" stroke="#e9cf90" stroke-width="1"/>
+                <path d="M89 359v-19h10v19m402 0v-19h10v19" fill="url(#brass)" stroke="#5b4525"/>
+                <g stroke="#67532d" stroke-width="1"><path d="M110 361v9m15-9v6m15-6v6m15-6v9m15-9v6m15-6v6m15-6v9m15-9v6m15-6v6m15-6v9M365 361v9m15-9v6m15-6v6m15-6v9m15-9v6m15-6v6m15-6v9m15-9v6m15-6v6"/></g>
+              </g>
+              <circle cx="300" cy="371" r="19" fill="#6a552f" stroke="#e0c68c" stroke-width="2"/>
+              <circle cx="300" cy="371" r="12" fill="url(#brassEdge)" stroke="#67522b"/>
+              <path d="m300 360 4 7 8 4-8 4-4 7-4-7-8-4 8-4Z" fill="#9c8149"/>
+              <circle cx="300" cy="371" r="3" fill="#443a27"/>
+            </g>
+          </g>
+        </symbol>
+        <symbol id="sky-map" viewBox="0 0 500 500">
+          <g transform="translate(250 250)" fill="none" stroke="#b99a5b">
+            <circle r="228" opacity=".25"/><circle r="216" opacity=".6"/><circle r="199" opacity=".3"/><circle r="166" opacity=".25"/><circle r="130" opacity=".2"/><circle r="90" opacity=".2"/><circle r="45" opacity=".2"/>
+            <g id="sky-ticks" stroke-width="1" opacity=".5"/>
+            <ellipse rx="195" ry="77" transform="rotate(-28)" opacity=".45"/>
+            <path d="M-210 0h420M0-210v420M-149-149l298 298M-149 149l298-298" stroke-width=".6" opacity=".3"/>
+            <g stroke="#789ca0" stroke-width="1.2"><path d="m-126-65 43-47 60 17 18-58 54 27 42 50 63-8 25 71M-159 58l52 39 50-8 28 59 61 27 23-56 54-13M-55 4l34-29 33 14 39-28 39 23"/></g>
+            <g fill="#e1d0a6" stroke="none"><circle cx="-126" cy="-65" r="3"/><circle cx="-83" cy="-112" r="2.5"/><circle cx="-23" cy="-95" r="3"/><circle cx="-5" cy="-153" r="3"/><circle cx="49" cy="-126" r="2"/><circle cx="91" cy="-76" r="3.5"/><circle cx="154" cy="-84" r="2"/><circle cx="179" cy="-13" r="3"/><circle cx="-159" cy="58" r="3"/><circle cx="-107" cy="97" r="2"/><circle cx="-57" cy="89" r="3"/><circle cx="-29" cy="148" r="3"/><circle cx="32" cy="175" r="2"/><circle cx="55" cy="119" r="3"/><circle cx="109" cy="106" r="2"/><circle cx="-55" cy="4" r="3"/><circle cx="-21" cy="-25" r="3"/><circle cx="12" cy="-11" r="2"/><circle cx="51" cy="-39" r="3"/><circle cx="90" cy="-16" r="2"/></g>
+            <g fill="#b99a5b" stroke="none" font-family="Georgia,serif" font-size="12" text-anchor="middle"><text y="-235">N</text><text y="245">S</text><text x="239" y="4">E</text><text x="-239" y="4">W</text><text x="-72" y="-126" font-size="14">الدب الأكبر</text><text x="105" y="148">الجوزاء</text></g>
+            <circle r="5" fill="#b99a5b" stroke="none"/>
+          </g>
+        </symbol>
+        <symbol id="cityscape" viewBox="0 0 1400 310">
+          <path d="M0 310V215h80v-30h70v20h80v-82h25v-12h7v-17h5v17h7v12h23v135h40V173h100v-27h25V95h-8V83h11V65h7V83h11v12h-8v51h27v27h100v85h48v-91h16V88h-5v-8h7V61h5v19h7v8h-5v79h16v-23h120v-15h16V84q0-36 45-63 45 27 45 63v45h16v15h120v23h16V88h-5v-8h7V61h5v19h7v8h-5v79h16v91h40V135h22v-13h8v-20h5v20h8v13h22v84h98v-34h74v42h85v83Z" fill="#142a36" stroke="#8e7a50" stroke-width="1"/>
+          <path d="M602 258v-74h103v-20h90v20h103v74M640 258v-47q13-28 27 0v47m164 0v-47q13-28 27 0v47M717 258v-54q33-55 66 0v54M710 138h80M711 123h78M712 108h76M715 93h70M719 78h62M730 59h40M750 21V4m-6 4h12M337 258v-64h100v64m-75 0v-34q25-39 50 0v34M930 258v-64h51v64M234 142h63m-63 12h63m-63 12h63m-63 12h63m-63 12h63" fill="none" stroke="#8e7a50" stroke-width=".8"/>
+          <path d="M0 275q170-22 350 5t350-2 350 2 350-5v35H0" fill="#101c2c"/>
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="app" id="presentation">
+      <header class="topbar">
+        <a class="brand" href="#slide-1" id="brand-home" title="Бірінші слайдқа оралу">
+          <svg class="brand-mark" aria-hidden="true"><use href="#rosette"/></svg>
+          <span>ДӘУІРЛЕР ТОҒЫСЫ</span>
+        </a>
+        <div class="header-right">
+          <span class="collection-label">ҒЫЛЫМ ТАРИХЫ · ИНТЕРАКТИВТІ ПРЕЗЕНТАЦИЯ</span>
+          <span class="header-divider"></span>
+          <button class="icon-button" id="fullscreen" aria-label="Толық экранға өту" title="Толық экран (F)">
+            <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="stage" id="stage" aria-label="Презентация слайдтары" aria-roledescription="слайдтар көрсетілімі">
+        <section class="slide hero active" id="slide-1" data-title="Титул" aria-labelledby="title-1" aria-roledescription="слайд">
+          <div class="hero-copy">
+            <p class="eyebrow">VIII–XV ҒАСЫРЛАР · БІЛІМНІҢ АЛТЫН ДӘУІРІ</p>
+            <h1 id="title-1">Шығыс<br><em>Ренессансы</em><span class="small-title">және ғылымның<br>дамуы</span></h1>
+            <p class="lead">Адамзаттың таным көкжиегін кеңейткен<br>ұлы ғалымдар, жаңалықтар мен идеялар.</p>
+            <button class="primary" data-goto="1">Зерттеуді бастау <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <div class="hero-meta">
+              <div><strong>VIII–XV</strong><span>ҒАСЫРЛАР<br>АРАЛЫҒЫ</span></div>
+              <div><strong>12</strong><span>ТАНЫМДЫҚ<br>СЛАЙД</span></div>
+            </div>
+            <div class="student-credit"><span>ОРЫНДАҒАН</span><strong>Farkhad Almabekov</strong></div>
+          </div>
+          <div class="hero-art">
+            <div class="orbital"></div>
+            <span class="hero-coordinate">Білім · Тәжірибе · Өркениет</span>
+            <svg class="artifact" role="img" aria-label="Жез астролябия мен ғылыми қолжазбаның көркем SVG-реконструкциясы"><use href="#astrolabe"/></svg>
+            <div class="art-caption"><strong>Аспанды таныған өркениет</strong><span>Астролябия · астрономиялық аспап<br>Көркем SVG-реконструкция</span></div>
+            <span class="vertical-note">ШЫҒЫС МҰРАСЫ / ҒЫЛЫМИ ТАНЫМ</span>
+          </div>
+        </section>
+
+        <section class="slide" id="slide-2" data-title="Кіріспе" aria-labelledby="title-2" aria-roledescription="слайд" inert>
+          <span class="section-number">01</span>
+          <div class="split">
+            <div class="title-block">
+              <p class="eyebrow">01 / КІРІСПЕ</p>
+              <h2 id="title-2">Білім қайта<br><em>түледі.</em></h2>
+              <p class="lead">Шығыс Ренессансы — ортағасырлық ислам әлемінде ғылым, философия мен мәдениеттің өркендеуін сипаттайтын ұғым.</p>
+              <div class="facts">
+                <div class="fact"><span class="fact-num">I</span><div><h3>Мұраны сақтау және жаңарту</h3><p>Грек, үнді және парсы еңбектері аударылып, жаңа бақылаулармен және дербес теориялармен толықты.</p></div></div>
+                <div class="fact"><span class="fact-num">II</span><div><h3>Ортақ ғылыми тіл</h3><p>Араб тілі түрлі халықтардың ғалымдарын байланыстырды. Парсы және түркі мәдени ортасы да маңызды рөл атқарды.</p></div></div>
+              </div>
+            </div>
+            <div>
+              <div class="definition">
+                <p class="statement">Бұл — тек өткенді жаңғырту емес,<br><em>жаңа білім өндіру дәуірі.</em></p>
+                <p class="tag">ПРЕЗЕНТАЦИЯНЫҢ НЕГІЗГІ ТҰЖЫРЫМЫ</p>
+              </div>
+              <div class="date-strip"><strong>VIII–XV</strong><p>ғасырлар — осы презентацияның ауқымы.<br>Ғылымның өрлеу мерзімі өңірлерге қарай әркелкі болды.</p></div>
+              <p class="source-note">«Шығыс Ренессансы» — шартты тарихнамалық атау; ол Еуропа Ренессансымен толық бірдей құбылыс емес.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide culture" id="slide-3" data-title="Тарихи-мәдени орта" aria-labelledby="title-3" aria-roledescription="слайд" inert>
+          <span class="section-number">02</span>
+          <div class="title-block"><p class="eyebrow">02 / ТАРИХИ-МӘДЕНИ ОРТА</p><h2 id="title-3">Ғылымды өркендеткен<br><em>үш тірек.</em></h2><p class="lead">Аббас әулеті билігі тұсында және кейінгі аймақтық мемлекеттерде білімге сұраныс артты.</p></div>
+          <div class="three-columns">
+            <div class="column"><p class="tag">01 · ҚОЛДАУ</p><h3>Билеушілер қамқорлығы</h3><p>Әл-Мәмун халифа дәуірінде (813–833) аударма мен астрономиялық бақылаулар қолдау тапты.</p></div>
+            <div class="column"><p class="tag">02 · БАЙЛАНЫС</p><h3>Қалалар және Жібек жолы</h3><p>Сауда желілерімен бірге кітаптар, есептеу тәсілдері, медициналық білім және жаңа идеялар тарады.</p></div>
+            <div class="column"><p class="tag">03 · БІЛІМ</p><h3>Қағаз және кітап мәдениеті</h3><p>VIII–IX ғасырларда қағаз өндірісінің таралуы кітап көшіруді жеңілдетіп, кітапханалар мен білім ортасын кеңейтті.</p></div>
+          </div>
+          <svg class="landscape-art" role="img" aria-label="Ортағасырлық Орталық Азия сәулетіне негізделген көркем панорама"><use href="#cityscape"/></svg>
+        </section>
+
+        <section class="slide cities" id="slide-4" data-title="Білім орталықтары" aria-labelledby="title-4" aria-roledescription="слайд" inert>
+          <span class="section-number">03</span>
+          <div class="split wide-right">
+            <div class="title-block">
+              <p class="eyebrow">03 / БІЛІМ МЕН ҒЫЛЫМ ОРТАЛЫҚТАРЫ</p><h2 id="title-4">Қалаларды жалғаған<br><em>білім жолы.</em></h2>
+              <div class="facts">
+                <div class="fact"><span class="fact-num">01</span><div><h3>Бағдад · IX ғасыр</h3><p>«Бәйт әл-Хикма» — «Даналық үйі» кітап қоры мен ғылыми ортаға қатысты атау. Бағдад аударма қозғалысының ірі орталығы болды.</p></div></div>
+                <div class="fact"><span class="fact-num">02</span><div><h3>Бұхара · IX–X ғасырлар</h3><p>Самани әулетінің астанасында бай кітапханалар болды. Жас Ибн Сина сарай кітапханасын пайдаланған.</p></div></div>
+                <div class="fact"><span class="fact-num">03</span><div><h3>Самарқанд · XV ғасыр</h3><p>Ұлықбек обсерваториясында жұлдыздар мен планеталардың орны дәл өлшеніп, астрономиялық кестелер жасалды.</p></div></div>
+              </div>
+            </div>
+            <figure class="map-visual" style="margin:0">
+              <svg viewBox="0 0 620 480" role="img" aria-labelledby="map-title">
+                <title id="map-title">Бағдад, Бұхара және Самарқандтың шартты тарихи-географиялық сызбасы</title>
+                <defs><pattern id="mapGrid" width="55" height="55" patternUnits="userSpaceOnUse"><path d="M55 0H0v55" fill="none" stroke="#78919b" stroke-width=".4" opacity=".2"/></pattern></defs>
+                <rect x="10" y="10" width="600" height="460" fill="url(#mapGrid)"/>
+                <path d="m32 330 41-30 20-50 55-41 20-59 71-26 20-32 67-6 55 18 39-35 51 22 22 45 52 10 17 48 40 37-15 62-66 22-20 47-59-2-44 41-51-18-65 10-48-33-65 7-53-25-37-12Z" fill="#1b303b" stroke="#778a78" stroke-width="1" opacity=".8"/>
+                <path d="m34 339 50-9 41 22 19 50 36 18 10-28-26-47-41-23-6-48" fill="none" stroke="#347c80" stroke-width="3" opacity=".6"/>
+                <path d="m231 291 37 6 27 29 27 5 9 36" fill="none" stroke="#347c80" stroke-width="3" opacity=".6"/>
+                <path d="m362 164-8 22 6 28 24-5 11-29-12-22Z" fill="#11232f" stroke="#347c80" opacity=".7"/>
+                <path d="M159 302Q254 179 421 183T477 166" stroke="#b99a5b" stroke-width="1.5" stroke-dasharray="5 6" fill="none"/>
+                <path d="M159 302Q284 341 477 166" stroke="#b99a5b" stroke-width=".7" stroke-dasharray="3 8" opacity=".4" fill="none"/>
+                <g fill="#b99a5b" stroke="#101c2c" stroke-width="4"><circle cx="159" cy="302" r="7"/><circle cx="421" cy="183" r="7"/><circle cx="477" cy="166" r="7"/></g>
+                <g fill="none" stroke="#b99a5b" opacity=".4"><circle cx="159" cy="302" r="15"/><circle cx="421" cy="183" r="15"/><circle cx="477" cy="166" r="15"/></g>
+                <text x="126" y="340" class="map-label">Бағдад</text><text x="126" y="358" class="map-small">«Даналық үйі»</text>
+                <path d="M421 167v-37h-21" fill="none" stroke="#b99a5b" opacity=".5"/><text x="350" y="117" class="map-label">Бұхара</text><text x="350" y="135" class="map-small">Кітапханалар қаласы</text>
+                <path d="m491 174 25 33h52" fill="none" stroke="#b99a5b" opacity=".5"/><text x="464" y="232" class="map-label">Самарқанд</text><text x="464" y="250" class="map-small">Ұлықбек обсерваториясы</text>
+                <text x="244" y="249" fill="#849697" font-family="Georgia,serif" font-size="18" font-style="italic" opacity=".5">Хорасан</text>
+                <text x="367" y="306" fill="#849697" font-family="Georgia,serif" font-size="15" font-style="italic" opacity=".4">Мауараннахр</text>
+                <g transform="translate(78 87)" stroke="#b99a5b" fill="none" opacity=".65"><path d="M0-24V24M-24 0H24m-7-17-34 34m0-34 34 34"/><path d="m0-24 5 19 19 5-19 5-5 19-5-19-19-5 19-5Z"/><text x="0" y="-34" text-anchor="middle" fill="#b99a5b" stroke="none" font-family="Georgia,serif" font-size="12">N</text></g>
+                <text x="310" y="445" text-anchor="middle" fill="#7c8f98" font-size="9" letter-spacing="1.5">БІЛІМ АЛМАСУ БАҒЫТТАРЫ · ШАРТТЫ СЫЗБА</text>
+              </svg>
+            </figure>
+          </div>
+        </section>
+
+        <section class="slide math-slide" id="slide-5" data-title="Математика" aria-labelledby="title-5" aria-roledescription="слайд" inert>
+          <span class="section-number">04</span>
+          <div class="split">
+            <div class="title-block">
+              <p class="eyebrow">04 / МАТЕМАТИКА</p><h2 id="title-5">Белгісізді<br><em>есепке айналдыру.</em></h2>
+              <span class="scholar-date">ӘЛ-ХОРЕЗМИ · ШАМ. 780–850</span>
+              <div class="facts">
+                <div class="fact"><span class="fact-num">I</span><div><h3>Алгебраның жүйеленуі</h3><p>Шамамен 820 жылы жазылған «Әл-жәбр уәл-муқабала» еңбегінде сызықтық және квадрат теңдеулерді шешу тәсілдері баяндалды.</p></div></div>
+                <div class="fact"><span class="fact-num">II</span><div><h3>Есімнен туған ұғым</h3><p>«Алгоритм» сөзі ғалым есімінің латынша нұсқасынан тарады. Оның арифметикалық еңбегі үнділік ондық есептеу жүйесін танытты.</p></div></div>
+              </div>
+            </div>
+            <div class="paper-panel">
+              <p class="tag">ӘЛ-ЖӘБР · ТОЛЫҚТЫРУ ӘДІСІ</p>
+              <h3>Квадратты толықтыру</h3>
+              <div class="equation">x² + 10x = 39</div>
+              <svg class="math-diagram" viewBox="0 0 370 180" role="img" aria-label="Квадратты толықтырудың геометриялық түсіндірмесі: x квадраты, екі 5x тіктөртбұрышы және 25 ауданды толықтыру">
+                <g transform="translate(95 8)"><rect width="110" height="110" fill="#347c80" fill-opacity=".7" stroke="#4a654f"/><rect x="110" width="55" height="110" fill="#ac8b4a" fill-opacity=".55" stroke="#7b683f"/><rect y="110" width="110" height="55" fill="#ac8b4a" fill-opacity=".55" stroke="#7b683f"/><rect x="110" y="110" width="55" height="55" fill="none" stroke="#8a744c" stroke-dasharray="4 3"/><g font-family="Georgia,serif" fill="#352e20" text-anchor="middle"><text x="55" y="64" font-size="25" fill="#f7f4ec">x²</text><text x="137" y="63" font-size="20">5x</text><text x="55" y="145" font-size="20">5x</text><text x="137" y="145" font-size="20">25</text></g><path d="M-10 0h-7v110h7M0-6v-7h110v7m7 0v-7h48v7" fill="none" stroke="#8a744c"/><text x="-28" y="60" font-size="15" font-family="Georgia,serif" fill="#715c37">x</text></g>
+              </svg>
+              <p class="paper-caption">Әл-Хорезми әдісінің қазіргі таңбалармен берілген мысалы.<br>Түпнұсқада есептер сөзбен түсіндірілген.</p>
+              <button class="text-button" id="solve" aria-expanded="false" aria-controls="solution">Шешу жолын көрсету <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <div class="solution" id="solution" hidden>x² + 10x + 25 = 39 + 25<br>(x + 5)² = 64 → x + 5 = 8 → <strong>x = 3</strong><br>Әл-Хорезми қарастырған оң шешім; қазіргі алгебрада екінші түбірі — −13.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide" id="slide-6" data-title="Медицина" aria-labelledby="title-6" aria-roledescription="слайд" inert>
+          <span class="section-number">05</span>
+          <div class="medicine">
+            <div class="title-block"><p class="eyebrow">05 / МЕДИЦИНА</p><h2 id="title-6">Науқасты бақылау.<br><em>Білімді жүйелеу.</em></h2></div>
+            <div class="scholar"><h3>Ибн Сина</h3><span class="scholar-date">980–1037</span><p class="work">«Дәрігерлік ғылым каноны»</p><p class="lead">Бес кітаптан тұратын еңбегінде аурулар, дәрілік заттар және емдеу қағидалары жүйеленді.</p><p class="lead">Латынша аудармасы Еуропада бірнеше ғасыр бойы медициналық білім беруде қолданылды.</p></div>
+            <div class="medicine-art">
+              <svg viewBox="0 0 220 320" role="img" aria-label="Дәрілік өсімдік пен медициналық ыдыстардың ғылыми гравюра стиліндегі иллюстрациясы">
+                <ellipse cx="110" cy="300" rx="95" ry="5" fill="#b99a5b" opacity=".1"/>
+                <g fill="none" stroke="#b99a5b" stroke-width="1.1"><path d="M112 240q-14-77 9-168m-10 131q-35-11-51-40m53 10q34-20 44-48m-43 18q-31-12-40-40m44 6q25-17 30-44"/><path d="M60 163q-33-2-31-33 33-2 31 33Zm14-60q-32-10-20-38 33 7 20 38Zm47-31q-14-28 8-48 22 24-8 48Zm27-7q25-27 43-11-9 31-43 11Zm9 60q33-18 45 5-21 24-45-5Z" fill="#347c80" fill-opacity=".15"/><path d="m42 135 17 27m0-87 14 28m56-70-8 39m59-14-32 7m46 63-37-3M82 247h59l-6 49H89Z"/><path d="M77 246q35 11 69 0m-68-4q33-8 68 0M93 260h38m-35 8h32m-29 8h26M20 269h34l-4 27H24Zm11-3v-21h13v21m-17-23h21m108 17h40v36h-40Zm7 0v-32h26v32m-28-35h30"/><circle cx="117" cy="71" r="4"/><path d="M8 314h205" opacity=".3"/></g>
+                <g fill="#b99a5b" font-family="Georgia,serif" font-size="10" opacity=".7"><text x="13" y="109" transform="rotate(-15 13 109)">Materia medica</text><text x="122" y="211" transform="rotate(-10 122 211)">الطب</text></g>
+              </svg>
+            </div>
+            <div class="scholar"><h3>Әл-Рази</h3><span class="scholar-date">ШАМ. 865–925</span><p class="work">Клиникалық бақылау дәстүрі</p><p class="lead">Шешек пен қызылшаның белгілерін бір-бірінен ажыратып сипаттаған маңызды медициналық трактат жазды.</p><p class="lead">«Әл-Хауи» жинағында бұрынғы білімді дәрігерлік тәжірибесімен салыстыра қарастырды.</p></div>
+            <div class="medicine-bottom"><span class="tag">НЕГІЗГІ ӨЗГЕРІС</span><p>Дәрігерлік тәжірибе → ауру белгілерін салыстыру → білімді жазбаша жинақтау.<br>Тарихи емдеу тәсілдерінің бәрі қазіргі медицинада жарамды емес.</p></div>
+          </div>
+        </section>
+
+        <section class="slide astronomy-slide" id="slide-7" data-title="Астрономия" aria-labelledby="title-7" aria-roledescription="слайд" inert>
+          <span class="section-number">06</span>
+          <div class="split wide-right">
+            <div class="title-block">
+              <p class="eyebrow">06 / АСТРОНОМИЯ</p><h2 id="title-7">Аспанға қарап,<br><em>Жерді тану.</em></h2>
+              <p class="lead">Дәл бақылаулар күнтізбе құруға, уақытты анықтауға және географиялық есептеулерге қажет болды.</p>
+              <div class="scientist-list">
+                <div><h3>Әл-Бируни</h3><span>973–ШАМ. 1050</span><p>Жер радиусын тау биіктігі мен көкжиектің төмендеу бұрышы арқылы есептеу әдісін сипаттады.</p></div>
+                <div><h3>Әл-Фарғани</h3><span>IX ҒАСЫР</span><p>Аспан қозғалыстары жөніндегі еңбегі астрономиялық білімді жүйеледі; XII ғасырда латын тіліне аударылды.</p></div>
+              </div>
+              <p class="source-note">Жұлдыздардың орны мен қозғалысы «зиж» деп аталатын астрономиялық кестелерде жинақталды.</p>
+            </div>
+            <div class="astronomy-visual"><svg role="img" aria-label="Жұлдыз шоқжұлдыздарының көркем картасы, ғылыми деректер кестесі емес"><use href="#sky-map"/></svg><div class="art-caption"><strong>Өлшеу — танымның кілті</strong><span>Жұлдыз картасының көркем схемасы<br>Астрономия · география · тригонометрия</span></div></div>
+          </div>
+        </section>
+
+        <section class="slide optics" id="slide-8" data-title="Оптика" aria-labelledby="title-8" aria-roledescription="слайд" inert>
+          <span class="section-number">07</span>
+          <div class="optics-top">
+            <div class="title-block"><p class="eyebrow">07 / ОПТИКА ЖӘНЕ ҒЫЛЫМИ ӘДІС</p><h2 id="title-8">Көрудің құпиясы —<br><em>жарықта.</em></h2><span class="scholar-date">ИБН ӘЛ-ХАЙСАМ · ШАМ. 965–1040</span></div>
+            <p class="lead">«Оптика кітабында» көруді заттан шағылған жарықтың көзге түсуімен түсіндірді. Қараңғы бөлме мен шағын саңылау арқылы жарықтың таралуын зерттеді.</p>
+          </div>
+          <figure class="optics-figure" style="margin-left:0;margin-right:0">
+            <svg viewBox="0 0 1100 230" role="img" aria-labelledby="optics-title">
+              <title id="optics-title">Камера-обскура: саңылаудан өткен жарық қарсы бетте төңкерілген кескін жасайды</title>
+              <defs><linearGradient id="lightRay"><stop stop-color="#d4bc83" stop-opacity=".04"/><stop offset=".5" stop-color="#d4bc83" stop-opacity=".15"/><stop offset="1" stop-color="#d4bc83" stop-opacity=".04"/></linearGradient></defs>
+              <path d="M420 20H950v178H420V122m0-12V20" fill="#0b1520" stroke="#6e7c77"/>
+              <path d="m185 38 235 78 486 71V45L420 116 185 183Z" fill="url(#lightRay)"/>
+              <path d="m185 38 235 78 486 71M185 183l235-67 486-71" fill="none" stroke="#c7ac70" stroke-width="1.2"/>
+              <path d="M140 184h91M185 183V58m-18 20 18-40 18 40" fill="none" stroke="#cdb77e" stroke-width="3"/>
+              <path d="M906 45v125m-13-16 13 33 13-33" fill="none" stroke="#347c80" stroke-width="4"/>
+              <circle cx="420" cy="116" r="3" fill="#f7f4ec"/>
+              <path d="m420 113 35-48h55" fill="none" stroke="#778a91" stroke-width=".7"/>
+              <text x="165" y="216" text-anchor="middle" fill="#b6b7a6" font-size="12" font-family="Georgia,serif">Жарықтанған зат</text>
+              <text x="469" y="53" fill="#a7b3b6" font-size="11">Шағын саңылау</text>
+              <text x="660" y="109" fill="#536471" font-family="Georgia,serif" font-size="19" font-style="italic">Қараңғы бөлме</text>
+              <text x="909" y="216" text-anchor="middle" fill="#83a5a5" font-size="12" font-family="Georgia,serif">Төңкерілген кескін</text>
+            </svg>
+          </figure>
+          <div class="method">
+            <div><span>01 / СҰРАҚ</span><h3>Бақылау</h3><p>Жарық пен көру құбылысын сипаттау.</p></div>
+            <div><span>02 / БОЛЖАМ</span><h3>Түсіндіру</h3><p>Құбылыстың ықтимал себебін ұсыну.</p></div>
+            <div><span>03 / ТЕКСЕРУ</span><h3>Тәжірибе</h3><p>Жарық жолын арнайы жағдайда сынау.</p></div>
+            <div><span>04 / ДӘЛЕЛ</span><h3>Қорытынды</h3><p>Нәтижені геометриялық талдаумен негіздеу.</p></div>
+          </div>
+        </section>
+
+        <section class="slide engineering-slide" id="slide-9" data-title="Инженерия" aria-labelledby="title-9" aria-roledescription="слайд" inert>
+          <span class="section-number">08</span>
+          <div class="split">
+            <div class="title-block">
+              <p class="eyebrow">08 / ИНЖЕНЕРИЯ</p><h2 id="title-9">Идеядан —<br><em>қозғалысқа.</em></h2><span class="scholar-date">ӘЛ-ДЖАЗАРИ · 1136–1206</span>
+              <div class="facts">
+                <div class="fact"><span class="fact-num">I</span><div><h3>Механизмдер кітабы · 1206 жыл</h3><p>Елуге жуық құрылғыны сипаттап, құрастыру сызбаларын қалдырды: су сағаттары, автоматтар және су көтеру жүйелері.</p></div></div>
+                <div class="fact"><span class="fact-num">II</span><div><h3>Басқарылатын қозғалыс</h3><p>Су ағыны, қалтқы, тісті доңғалақ және иінді механизмдер уақыт өлшеу мен күнделікті жұмысты автоматтандырды.</p></div></div>
+              </div>
+              <button class="text-button" id="mechanism-toggle" aria-pressed="false">Механизмді іске қосу <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            </div>
+            <div class="mechanism-visual" id="mechanism">
+              <svg viewBox="0 0 560 460" role="img" aria-label="Су қозғалтқышы мен тісті берілістің түсіндірмелік сызбасы, Әл-Джазари құрылғысының дәл көшірмесі емес">
+                <path d="M60 417h440M91 405h375" fill="none" stroke="#b99a5b" opacity=".3"/>
+                <path d="M109 135h65v210h-65Z" fill="#b99a5b" fill-opacity=".05" stroke="#b99a5b"/>
+                <path d="M110 236h63v108h-63Z" fill="#347c80" opacity=".35"/>
+                <path d="M109 239q16 7 32 0t32 0" fill="none" stroke="#5faaa9"/>
+                <path d="M120 128h44v7h-44m-33-10h109M141 133V82h140v37" fill="none" stroke="#b99a5b" stroke-width="3"/>
+                <path d="M141 156v83m-21 13h43v12h-43Z" fill="none" stroke="#b99a5b"/>
+                <path d="M282 262v130m100-53v53M243 396h77m24 0h77" fill="none" stroke="#b99a5b" stroke-width="5"/>
+                <g class="gear-one">
+                  <circle cx="282" cy="195" r="69" fill="#142832" stroke="#b99a5b" stroke-width="3"/><circle cx="282" cy="195" r="51" fill="none" stroke="#b99a5b"/>
+                  <g id="gear-one-teeth" stroke="#b99a5b" stroke-width="8"/>
+                  <path d="M282 143v104m-52-52h104m-89-37 74 74m-74 0 74-74" stroke="#b99a5b" stroke-width="5"/><circle cx="282" cy="195" r="12" fill="url(#brass)"/>
+                </g>
+                <g class="gear-two">
+                  <circle cx="382" cy="273" r="55" fill="#142832" stroke="#b99a5b" stroke-width="3"/><circle cx="382" cy="273" r="38" fill="none" stroke="#b99a5b"/>
+                  <g id="gear-two-teeth" stroke="#b99a5b" stroke-width="7"/>
+                  <path d="M382 235v76m-38-38h76m-65-27 54 54m-54 0 54-54" stroke="#b99a5b" stroke-width="4"/><circle cx="382" cy="273" r="10" fill="url(#brass)"/>
+                </g>
+                <path d="M173 306h52v53h-55v-15" fill="none" stroke="#b99a5b" stroke-width="3"/>
+                <path d="M201 321v52m-22-24h44" stroke="#347c80" stroke-width="3"/>
+                <path class="water-drop" d="M282 92q-12 16 0 20 12-4 0-20" fill="#5eaaaa"/>
+                <g stroke="#697f88" stroke-width=".7" fill="none"><path d="M98 250H47v-45M332 155l45-45h52M420 299l39 40h43"/></g>
+                <g fill="#a6b2b5" font-size="11" font-family="Georgia,serif"><text x="24" y="193">Қалтқы</text><text x="382" y="100">Тісті беріліс</text><text x="439" y="359">Қозғалыс</text></g>
+                <text x="282" y="443" text-anchor="middle" fill="#758b94" font-size="9" letter-spacing="1">ҚОЗҒАЛЫС ПРИНЦИПІНІҢ ШАРТТЫ СЫЗБАСЫ</text>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <section class="slide impact" id="slide-10" data-title="Әлемдік ықпал" aria-labelledby="title-10" aria-roledescription="слайд" inert>
+          <span class="section-number">09</span>
+          <div class="impact-head">
+            <div class="title-block"><p class="eyebrow">09 / ӘЛЕМДІК ӨРКЕНИЕТКЕ ӘСЕРІ</p><h2 id="title-10">Білімнің<br><em>шекарасы жоқ.</em></h2></div>
+            <p class="lead">Аударма, сауда және білім алу желілері арқылы Шығыс ғалымдарының еңбектері Еуропаның ғылыми ортасына жетті.</p>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item"><p class="year">IX ғ.</p><h3>Жинақтау және дамыту</h3><p>Бағдадта антикалық және үнді мұрасы зерттеліп, алгебра мен астрономияда жаңа еңбектер жазылды.</p></div>
+            <div class="timeline-item"><p class="year">XII ғ.</p><h3>Латынша аудармалар</h3><p>Толедода және өзге орталықтарда араб тіліндегі медицина, математика және астрономия еңбектері аударылды.</p></div>
+            <div class="timeline-item"><p class="year">1202</p><h3>Есептеудің жаңа тілі</h3><p>Фибоначчидің «Liber abaci» кітабы үнді-араб цифрлары мен есептеу тәсілдерін Еуропада танытуға ықпал етті.</p></div>
+            <div class="timeline-item"><p class="year">XIII–XVI ғғ.</p><h3>Білім беру дәстүрі</h3><p>Ибн Сина медицинасы мен Ибн әл-Хайсам оптикасы оқытылып, талқыланып, кейінгі зерттеулерге негіз болды.</p></div>
+          </div>
+          <p class="impact-note">Бұл ықпал — біржақты «беру» емес, мәдениеттер арасындағы ұзақ әрі көпбағытты білім алмасу.</p>
+        </section>
+
+        <section class="slide conclusion" id="slide-11" data-title="Қорытынды" aria-labelledby="title-11" aria-roledescription="слайд" inert>
+          <svg class="conclusion-ornament" aria-hidden="true"><rect width="100%" height="100%" fill="url(#geoPattern)"/></svg>
+          <p class="eyebrow">10 / ҚОРЫТЫНДЫ</p><h2 id="title-11">Өткеннің мұрасы —<br><em>болашақтың іргетасы.</em></h2>
+          <p class="lead">Шығыс ғалымдары білімді сақтап қана қойған жоқ: есептеу әдістерін жетілдірді, бақылау мен тәжірибені ұштастырды, ғылымға жаңа сұрақтар қойды.</p>
+          <div class="conclusion-values"><span><b>I.</b> Дәл есептеу</span><span><b>II.</b> Тәжірибемен тексеру</span><span><b>III.</b> Біліммен бөлісу</span></div>
+          <div class="conclusion-actions"><button class="primary" data-goto="11">Дереккөздерге өту <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button><button class="text-button" data-goto="0"><svg class="icon" aria-hidden="true"><use href="#i-restart"/></svg>Басынан бастау</button></div>
+        </section>
+
+        <section class="slide sources" id="slide-12" data-title="Дереккөздер" aria-labelledby="title-12" aria-roledescription="слайд" inert>
+          <span class="section-number">11</span>
+          <div class="title-block"><p class="eyebrow">11 / ПАЙДАЛАНЫЛҒАН ДЕРЕККӨЗДЕР</p><h2 id="title-12">Тарихқа сүйенген <em>тұжырымдар.</em></h2><p class="sources-intro">Ғылыми зерттеулер, энциклопедиялық мақалалар және бастапқы еңбектердің академиялық басылымдары.</p></div>
+          <div class="source-grid">
+            <a class="source-entry" href="https://www.britannica.com/biography/al-Khwarizmi" target="_blank" rel="noopener noreferrer"><span>01</span><div><h3>Encyclopaedia Britannica</h3><p>«Al-Khwārizmī», «Avicenna», «Al-Rāzī», «Al-Bīrūnī», «Ibn al-Haytham» мақалалары. Ғалымдардың өмірі мен негізгі еңбектері.</p></div><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+            <a class="source-entry" href="https://search.worldcat.org/search?q=Greek+Thought+Arabic+Culture+Dimitri+Gutas+1998" target="_blank" rel="noopener noreferrer"><span>02</span><div><h3>Димитри Гутас · 1998</h3><p>«Greek Thought, Arabic Culture». Routledge. Бағдадтағы грек-араб аударма қозғалысы мен оның әлеуметтік ортасы.</p></div><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+            <a class="source-entry" href="https://mitpress.mit.edu/9780262516155/islamic-science-and-the-making-of-the-european-renaissance/" target="_blank" rel="noopener noreferrer"><span>03</span><div><h3>Джордж Салиба · 2007</h3><p>«Islamic Science and the Making of the European Renaissance». MIT Press. Ғылыми жаңалықтар мен мәдениетаралық ықпал.</p></div><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+            <a class="source-entry" href="https://www.nlm.nih.gov/exhibition/islamic_medical/islamic_00.html" target="_blank" rel="noopener noreferrer"><span>04</span><div><h3>АҚШ Ұлттық медицина кітапханасы</h3><p>«Islamic Medical Manuscripts». Ибн Сина, Әл-Рази және ортағасырлық медицина қолжазбалары туралы ғылыми көрме.</p></div><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+            <a class="source-entry" href="https://search.worldcat.org/search?q=The+Optics+of+Ibn+al-Haytham+Sabra+1989" target="_blank" rel="noopener noreferrer"><span>05</span><div><h3>А. И. Сабра · 1989</h3><p>«The Optics of Ibn al-Haytham. Books I–III». Warburg Institute. Аударма және түсіндірме: көру теориясы мен тәжірибелер.</p></div><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+            <a class="source-entry" href="https://doi.org/10.1007/978-94-010-2573-7" target="_blank" rel="noopener noreferrer"><span>06</span><div><h3>Дональд Р. Хилл · 1974</h3><p>«The Book of Knowledge of Ingenious Mechanical Devices». Әл-Джазари еңбегінің ғылыми аудармасы. D. Reidel.</p></div><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+          </div>
+          <div class="sources-bottom"><p>Ескерту: мерзімі белгісіз даталар «шамамен» деп берілді. Барлық иллюстрация — осы презентацияға арналған көркем SVG-реконструкция немесе түсіндірмелік схема; тарихи заттардың фотокөшірмесі емес. Сыртқы дереккөздерді ашу үшін интернет қажет.</p><button class="text-button" data-goto="0"><svg class="icon" aria-hidden="true"><use href="#i-restart"/></svg>Басынан бастау</button></div>
+        </section>
+      </main>
+
+      <footer class="bottom-bar">
+        <div class="bottom-left"><button class="contents-button" id="open-contents" aria-haspopup="dialog" title="Слайдтар мазмұны (M)"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg>Слайдтар</button><span class="current-chapter" id="chapter-name">Кіріспеге қадам</span></div>
+        <nav class="pagination" id="pagination" aria-label="Слайдты таңдау"></nav>
+        <div class="navigation"><span class="slide-count" id="slide-count" aria-live="polite" aria-atomic="true"><b>01</b> / 12</span><button class="nav-button" id="previous" aria-label="Алдыңғы слайд" title="Алдыңғы слайд (←)" disabled><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button><button class="nav-button next" id="next" aria-label="Келесі слайд" title="Келесі слайд (→)"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button></div>
+        <span class="keyboard-hint">← → &nbsp; слайд ауыстыру <span style="color:#3f5260"> &nbsp; / &nbsp; </span> Space &nbsp; келесі слайд</span>
+      </footer>
+      <div class="progress-track" role="progressbar" aria-label="Презентация барысы" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1"><div class="progress-value" id="progress"></div></div>
+    </div>
+
+    <dialog class="contents-dialog" id="contents" aria-labelledby="contents-title">
+      <div class="dialog-header"><div><p class="eyebrow">12 СЛАЙД · БІР ҒЫЛЫМИ САЯХАТ</p><h2 id="contents-title">Презентация мазмұны</h2></div><button class="icon-button" id="close-contents" aria-label="Мазмұнды жабу"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+      <div class="contents-grid" id="contents-grid"></div>
+      <p class="dialog-help">Слайдқа өту үшін оның атауын таңдаңыз. Жабу — Esc пернесі.</p>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <noscript><p style="position:fixed;bottom:100px;left:7%;color:#d4bc83;font-size:12px;z-index:100">Слайдтарды ауыстыру үшін браузерде JavaScript қосыңыз.</p></noscript>
+
+    <script>
+      (() => {
+        'use strict';
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => [...document.querySelectorAll(s)];
+        const slides = $$('.slide');
+        const count = slides.length;
+        const titles = ['Титул · Ғылымның алтын дәуірі','Кіріспе · Шығыс Ренессансы','Тарихи-мәдени орта','Білім мен ғылым орталықтары','Математика · Әл-Хорезми','Медицина · Ибн Сина және Әл-Рази','Астрономия · Аспанды тану','Оптика · Ибн әл-Хайсам','Инженерия · Әл-Джазари','Әлемдік өркениетке әсері','Қорытынды · Ғылым мұрасы','Пайдаланылған дереккөздер'];
+        let current = 0;
+        let toastTimer;
+        const svgNS = 'http://www.w3.org/2000/svg';
+
+        // The instrument is a decorative reconstruction, not a historical facsimile.
+        function ticks(group, cx, cy, radius, number, majorEvery, length, minorLength) {
+          group.replaceChildren();
+          for (let i = 0; i < number; i++) {
+            const angle = (i / number) * Math.PI * 2;
+            const inner = radius - (i % majorEvery === 0 ? length : minorLength);
+            const line = document.createElementNS(svgNS, 'line');
+            line.setAttribute('x1', cx + Math.sin(angle) * inner);
+            line.setAttribute('y1', cy - Math.cos(angle) * inner);
+            line.setAttribute('x2', cx + Math.sin(angle) * radius);
+            line.setAttribute('y2', cy - Math.cos(angle) * radius);
+            group.append(line);
+          }
+        }
+        ticks($('#astrolabe-ticks'), 300, 371, 232, 180, 5, 16, 7);
+        ticks($('#sky-ticks'), 0, 0, 216, 120, 5, 12, 5);
+        ticks($('#gear-one-teeth'), 282, 195, 77, 24, 1, 12, 12);
+        ticks($('#gear-two-teeth'), 382, 273, 63, 20, 1, 11, 11);
+        $('#astrolabe-numbers').replaceChildren();
+        for (let i = 0; i < 24; i++) {
+          const angle = i * Math.PI / 12;
+          const text = document.createElementNS(svgNS, 'text');
+          text.setAttribute('x', 300 + Math.sin(angle) * 215);
+          text.setAttribute('y', 375 - Math.cos(angle) * 215);
+          text.setAttribute('transform', `rotate(${i * 15} ${300 + Math.sin(angle) * 215} ${375 - Math.cos(angle) * 215})`);
+          text.textContent = ['٠','١٥','٣٠','٤٥','٦٠','٧٥','٩٠','١٠٥','١٢٠','١٣٥','١٥٠','١٦٥','١٨٠','١٩٥','٢١٠','٢٢٥','٢٤٠','٢٥٥','٢٧٠','٢٨٥','٣٠٠','٣١٥','٣٣٠','٣٤٥'][i];
+          $('#astrolabe-numbers').append(text);
+        }
+
+        const pagination = $('#pagination');
+        const contentsGrid = $('#contents-grid');
+        pagination.replaceChildren();
+        contentsGrid.replaceChildren();
+        titles.forEach((title, index) => {
+          const dot = document.createElement('button');
+          dot.className = 'page-dot';
+          dot.setAttribute('aria-label', `${index + 1}. ${title}`);
+          dot.setAttribute('title', title);
+          dot.addEventListener('click', () => go(index));
+          pagination.append(dot);
+          const item = document.createElement('button');
+          item.className = 'contents-item';
+          const number = document.createElement('span');
+          number.textContent = String(index + 1).padStart(2, '0');
+          const label = document.createElement('strong');
+          label.textContent = title;
+          item.append(number, label);
+          item.addEventListener('click', () => { $('#contents').close(); go(index); });
+          contentsGrid.append(item);
+        });
+
+        function go(index, updateHash = true) {
+          const next = Math.max(0, Math.min(count - 1, index));
+          $('#stage').dataset.direction = next < current ? 'backward' : 'forward';
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('leaving', i === current && i !== next);
+            slide.classList.toggle('active', i === next);
+            slide.inert = i !== next;
+            slide.setAttribute('aria-hidden', String(i !== next));
+          });
+          current = next;
+          slides[current].scrollTop = 0;
+          $('#previous').disabled = current === 0;
+          $('#next').disabled = current === count - 1;
+          $('#slide-count').innerHTML = `<b>${String(current + 1).padStart(2, '0')}</b> / ${count}`;
+          $('#chapter-name').textContent = current === 0 ? 'Кіріспеге қадам' : slides[current].dataset.title;
+          $('#progress').style.width = `${(current + 1) / count * 100}%`;
+          $('.progress-track').setAttribute('aria-valuenow', String(current + 1));
+          $$('.page-dot').forEach((dot, i) => {
+            dot.setAttribute('aria-current', String(i === current));
+            dot.classList.toggle('visited', i < current);
+          });
+          $$('.contents-item').forEach((item, i) => {
+            item.classList.toggle('selected', i === current);
+            item.setAttribute('aria-current', String(i === current));
+          });
+          if (current !== 8) {
+            $('#mechanism').classList.remove('running');
+            $('#mechanism-toggle').setAttribute('aria-pressed', 'false');
+            $('#mechanism-toggle').firstChild.textContent = 'Механизмді іске қосу ';
+          }
+          if (updateHash) {
+            try { history.replaceState(null, '', `#slide-${current + 1}`); } catch (_) { /* file: URLs also work without history access. */ }
+          }
+        }
+        function fromHash() {
+          const match = location.hash.match(/^#slide-(\d+)$/);
+          go(match ? Number(match[1]) - 1 : 0, false);
+        }
+        function notify(message) {
+          clearTimeout(toastTimer);
+          $('#toast').textContent = message;
+          $('#toast').classList.add('show');
+          toastTimer = setTimeout(() => $('#toast').classList.remove('show'), 4200);
+        }
+        $('#previous').addEventListener('click', () => go(current - 1));
+        $('#next').addEventListener('click', () => go(current + 1));
+        $$('[data-goto]').forEach(button => button.addEventListener('click', () => go(Number(button.dataset.goto))));
+        $('#brand-home').addEventListener('click', (event) => { event.preventDefault(); go(0); });
+        window.addEventListener('hashchange', fromHash);
+
+        function openContents() {
+          $('#contents').showModal();
+          const selected = $('.contents-item.selected');
+          if (selected) selected.focus({ preventScroll: true });
+        }
+        $('#open-contents').addEventListener('click', openContents);
+        $('#close-contents').addEventListener('click', () => $('#contents').close());
+        $('#contents').addEventListener('click', (event) => {
+          const rect = $('#contents').getBoundingClientRect();
+          if (event.target === $('#contents') && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) $('#contents').close();
+        });
+
+        async function toggleFullscreen() {
+          try {
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+              if (document.exitFullscreen) await document.exitFullscreen();
+              else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            }
+            else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+            else if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen();
+            else notify('Толық экран үшін браузердің F11 пернесін басыңыз.');
+          } catch (_) { notify('Толық экран шектелген. Браузердің F11 пернесін басыңыз.'); }
+        }
+        $('#fullscreen').addEventListener('click', toggleFullscreen);
+        function updateFullscreenUI() {
+          const active = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+          $('#fullscreen use').setAttribute('href', active ? '#i-collapse' : '#i-expand');
+          $('#fullscreen').setAttribute('aria-label', active ? 'Толық экраннан шығу' : 'Толық экранға өту');
+          $('#fullscreen').setAttribute('title', active ? 'Толық экраннан шығу (F)' : 'Толық экран (F)');
+        }
+        document.addEventListener('fullscreenchange', updateFullscreenUI);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+
+        document.addEventListener('keydown', event => {
+          if (event.ctrlKey || event.metaKey || event.altKey || event.repeat) return;
+          if ($('#contents').open) return;
+          const target = event.target;
+          if (target.closest('input,textarea,select,[contenteditable=true]')) return;
+          // Keep native activation of focused buttons and links with Space/Enter.
+          if (event.code === 'Space' && target.closest('button,a')) return;
+          if (['ArrowRight','ArrowDown','PageDown'].includes(event.key) || event.code === 'Space') { event.preventDefault(); go(current + 1); }
+          else if (['ArrowLeft','ArrowUp','PageUp'].includes(event.key)) { event.preventDefault(); go(current - 1); }
+          else if (event.key === 'Home') { event.preventDefault(); go(0); }
+          else if (event.key === 'End') { event.preventDefault(); go(count - 1); }
+          else if (event.key.toLowerCase() === 'f' || event.code === 'KeyF') { event.preventDefault(); toggleFullscreen(); }
+          else if (event.key.toLowerCase() === 'm' || event.code === 'KeyM') { event.preventDefault(); openContents(); }
+        });
+        let touchStart;
+        $('#stage').addEventListener('touchstart', event => {
+          const touch = event.changedTouches[0];
+          touchStart = { x: touch.clientX, y: touch.clientY, interactive: Boolean(event.target.closest('button,a')) };
+        }, { passive: true });
+        $('#stage').addEventListener('touchend', event => {
+          if (!touchStart || touchStart.interactive) return;
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - touchStart.x;
+          const dy = touch.clientY - touchStart.y;
+          if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.5) go(current + (dx < 0 ? 1 : -1));
+          touchStart = null;
+        }, { passive: true });
+
+        $('#solve').addEventListener('click', () => {
+          const show = $('#solution').hidden;
+          $('#solution').hidden = !show;
+          $('#solve').setAttribute('aria-expanded', String(show));
+          $('#solve').firstChild.textContent = show ? 'Шешу жолын жасыру ' : 'Шешу жолын көрсету ';
+        });
+        $('#mechanism-toggle').addEventListener('click', () => {
+          const running = $('#mechanism').classList.toggle('running');
+          $('#mechanism-toggle').setAttribute('aria-pressed', String(running));
+          $('#mechanism-toggle').firstChild.textContent = running ? 'Механизмді тоқтату ' : 'Механизмді іске қосу ';
+        });
+
+        fromHash();
+      })();
+    </script>
+  </body>
+</html>
